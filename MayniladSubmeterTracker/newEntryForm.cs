@@ -226,20 +226,21 @@ namespace MayniladSubmeterTracker
 
                 //Calculate the cost per cubic meter
                 sub1aCostPer = sub1aBill / sub1aDiff;
-                sub2aCostPer = sub2aBill / sub2aDiff;
 
                 //since this unit should not be using any water, to avoid dividing by 0
                 //an if statement will check the condition of the unit's water usage
-                if (sub2bBill == 0)
+                if (sub2aBill == 0)
                 {
-                    sub2bCostPer = 0;
+                    sub2aCostPer = 0;
                 }
 
                 else
                 {
-                    sub2bCostPer = sub2bBill / sub2bDiff;
+                    sub2aCostPer = sub2aBill / sub2aDiff;
                 }
 
+
+                sub2bCostPer = sub2bBill / sub2bDiff;
                 sub3aCostPer = sub3aBill / sub3aDiff;
                 sub3bCostPer = sub3bBill / sub3bDiff;
 
