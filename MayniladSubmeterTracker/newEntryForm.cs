@@ -86,12 +86,12 @@ namespace MayniladSubmeterTracker
             {
                 //connect to SQL Database
                 SqlConnection conn = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True");
-                
+
                 conn.Open(); //open the connection
 
                 //add the values into the database
-                SqlCommand cmd = new SqlCommand("INSERT INTO submeterReading VALUES ('"+month+"','"+year+"','"+submeter1aValue+"','"+submeter2aValue+"'" +
-                ",'"+submeter2bValue+"','"+submeter3aValue+"','"+submeter3bValue+"','"+totalUsageValue+"','"+totalBillValue+"')", conn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO submeterReading VALUES ('" + month + "','" + year + "','" + submeter1aValue + "','" + submeter2aValue + "'" +
+                ",'" + submeter2bValue + "','" + submeter3aValue + "','" + submeter3bValue + "','" + totalUsageValue + "','" + totalBillValue + "')", conn);
                 cmd.ExecuteNonQuery();
 
                 //filter the database to get the specific row created and get the id number
@@ -125,16 +125,16 @@ namespace MayniladSubmeterTracker
 
                     conn.Close(); //close the connection
 
-                    //calculate the difference between the current and previous month usage
-                    //then, populate the dataset with the correct information
-                    populateDataset(CalculateUsage(conn, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue), conn);
-
                 }
+
+                //calculate the difference between the current and previous month usage
+                //then, populate the dataset with the correct information
+                populateDataset(CalculateUsage(conn, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue), conn);
             }
 
             catch (Exception ex)
             {
-                //MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}");
             }
 
             //create and show the other form
@@ -146,24 +146,24 @@ namespace MayniladSubmeterTracker
         private Submeter[] CalculateUsage(SqlConnection conn, int month, int year, int id, int sub1, int sub2a, int sub2b, int sub3a, int sub3b)
         {
             double billTotal = 0;
-            int prevSub1a = 0, prevSub2a = 0, prevSub2b = 0, prevSub3a = 0, prevSub3b = 0;
+            double prevSub1a = 0, prevSub2a = 0, prevSub2b = 0, prevSub3a = 0, prevSub3b = 0;
 
-            int sub1aDiff, sub2aDiff, sub2bDiff, sub3aDiff, sub3bDiff;
-            int totalUsage;
+            double sub1aDiff, sub2aDiff, sub2bDiff, sub3aDiff, sub3bDiff;
+            double totalUsage;
             double sub1aPercent, sub2aPercent, sub2bPercent, sub3aPercent, sub3bPercent;
             double sub1aBill, sub2aBill, sub2bBill, sub3aBill, sub3bBill;
             double sub1aCostPer, sub2aCostPer, sub2bCostPer, sub3aCostPer, sub3bCostPer;
-            
+
             conn.Open(); //open the connection
 
             //get the previous month information
-            string sqlQuery = $"SELECT * FROM submeterReading WHERE id = @Id";
+            string sqlQuery = $"SELECT TOP 1 * FROM submeterReading WHERE id < @Id ORDER BY id DESC";
 
             // Create a SqlCommand with the query and connection
             using (SqlCommand getPreviousMonth = new SqlCommand(sqlQuery, conn))
             {
                 // Add parameters to the SqlCommand (prevent SQL injection)
-                getPreviousMonth.Parameters.AddWithValue("@Id", (id-1));
+                getPreviousMonth.Parameters.AddWithValue("@Id", (id - 1));
 
                 // Execute the query
                 using (SqlDataReader reader = getPreviousMonth.ExecuteReader())
@@ -197,11 +197,14 @@ namespace MayniladSubmeterTracker
                 sub1aDiff = sub1 - prevSub1a;
                 sub2aDiff = sub2a - prevSub2a;
                 sub2bDiff = sub2b - prevSub2b;
-                sub3aDiff = sub3b - prevSub3b;
+                sub3aDiff = sub3a - prevSub3a;
                 sub3bDiff = sub3b - prevSub3b;
+
+                Console.WriteLine("Differences\n" + sub1aDiff.ToString() + "\n" + sub2aDiff.ToString() + "\n" + sub2bDiff.ToString() + "\n" + sub3aDiff.ToString() + "\n" + sub3bDiff.ToString());
 
                 //Calculate the total usage for the month
                 totalUsage = sub1aDiff + sub2aDiff + sub2bDiff + sub3aDiff + sub3bDiff;
+                Console.WriteLine("Total Usage:" + totalUsage.ToString());
 
                 //Calculate the usage percentage per unit
                 sub1aPercent = sub1aDiff / totalUsage;
@@ -210,6 +213,8 @@ namespace MayniladSubmeterTracker
                 sub3aPercent = sub3aDiff / totalUsage;
                 sub3bPercent = sub3bDiff / totalUsage;
 
+                Console.WriteLine("Percent\n" + sub1aPercent.ToString() + "\n" + sub2aPercent.ToString() + "\n" + sub2bPercent.ToString() + "\n" + sub3aPercent.ToString() + "\n" + sub3bPercent.ToString());
+
                 //Calculate the individual bills
                 sub1aBill = billTotal * sub1aPercent;
                 sub2aBill = billTotal * sub2aPercent;
@@ -217,30 +222,43 @@ namespace MayniladSubmeterTracker
                 sub3aBill = billTotal * sub3aPercent;
                 sub3bBill = billTotal * sub3bPercent;
 
+                Console.WriteLine("Bill\n" + sub1aBill.ToString() + "\n" + sub2aBill.ToString() + "\n" + sub2bBill.ToString() + "\n" + sub3aBill.ToString() + "\n" + sub3bBill.ToString());
+
                 //Calculate the cost per cubic meter
                 sub1aCostPer = sub1aBill / sub1aDiff;
-                sub2aCostPer = sub2aBill / sub2aDiff;
+
+                //since this unit should not be using any water, to avoid dividing by 0
+                //an if statement will check the condition of the unit's water usage
+                if (sub2aBill == 0)
+                {
+                    sub2aCostPer = 0;
+                }
+
+                else
+                {
+                    sub2aCostPer = sub2aBill / sub2aDiff;
+                }
+
+
                 sub2bCostPer = sub2bBill / sub2bDiff;
                 sub3aCostPer = sub3aBill / sub3aDiff;
                 sub3bCostPer = sub3bBill / sub3bDiff;
 
+                Console.WriteLine("Cost Per:\n" + sub1aCostPer.ToString() + "\n" + sub2aCostPer.ToString() + "\n" + sub2bCostPer.ToString() +
+                    "\n" + sub3aCostPer.ToString() + "\n" + sub3bCostPer.ToString());
+
                 //Create submeter objects to store the information
-                Submeter submeter1a = new Submeter(month, year, sub1aDiff, sub1aCostPer, sub1aBill);
-                MessageBox.Show(submeter1a.Month.ToString() + submeter1a.Year.ToString() + sub1aDiff.ToString() + sub1aCostPer.ToString() + sub1aBill.ToString());
+                Submeter submeter1a = new Submeter(month, year, sub1aDiff, Math.Round((sub1aCostPer * 100), 2), Math.Round(sub1aBill, 2));
 
-                Submeter submeter2a = new Submeter(month, year, sub2aDiff, sub2aCostPer, sub2aBill);
-                MessageBox.Show(submeter2a.Month.ToString() + submeter2a.Year.ToString() + sub2aDiff.ToString() + sub2aCostPer.ToString() + sub2aBill.ToString());
+                Submeter submeter2a = new Submeter(month, year, sub2aDiff, Math.Round((sub2aCostPer * 100), 2), Math.Round(sub2aBill, 2));
 
-                Submeter submeter2b = new Submeter(month, year, sub2bDiff, sub2bCostPer, sub2bBill);
-                MessageBox.Show(submeter2b.Month.ToString() + submeter2b.Year.ToString() + sub2bDiff.ToString() + sub2bCostPer.ToString() + sub2bBill.ToString());
+                Submeter submeter2b = new Submeter(month, year, sub2bDiff, Math.Round((sub2bCostPer * 100), 2), Math.Round(sub2bBill, 2));
 
-                Submeter submeter3a = new Submeter(month, year, sub3aDiff, sub3aCostPer, sub3aBill);
-                MessageBox.Show(submeter3a.Month.ToString() + submeter3a.Year.ToString() + sub3aDiff.ToString() + sub3aCostPer.ToString() + sub3aBill.ToString());
+                Submeter submeter3a = new Submeter(month, year, sub3aDiff, Math.Round((sub3aCostPer * 100), 2), Math.Round(sub3aBill, 2));
 
-                Submeter submeter3b = new Submeter(month, year, sub3bDiff, sub3bCostPer, sub3bBill);
-                MessageBox.Show(submeter3b.Month.ToString() + submeter3b.Year.ToString() + sub3bDiff.ToString() + sub3bCostPer.ToString() + sub3bBill.ToString());
+                Submeter submeter3b = new Submeter(month, year, sub3bDiff, Math.Round((sub3bCostPer * 100), 2), Math.Round(sub3bBill, 2));
 
-                Submeter[] submeters = {submeter1a, submeter2a, submeter2b, submeter3a, submeter3b};
+                Submeter[] submeters = { submeter1a, submeter2a, submeter2b, submeter3a, submeter3b };
 
                 //Return the created submeter objects list
                 return submeters;
@@ -259,27 +277,27 @@ namespace MayniladSubmeterTracker
                 SqlCommand fillSub1a = new SqlCommand("INSERT INTO submeter1A VALUES ('" + submeters[0].Month + "','" + submeters[0].Year + "','" + submeters[0].WaterUsage + "','" +
                     submeters[0].CostPerCubic + "','" + submeters[0].Amount + "')", conn);
                 fillSub1a.ExecuteNonQuery();
-                MessageBox.Show("Fill sub 1a complete");
+                Console.WriteLine("Fill sub 1a complete");
 
                 SqlCommand fillSub2a = new SqlCommand("INSERT INTO submeter2A VALUES ('" + submeters[1].Month + "','" + submeters[1].Year + "','" + submeters[1].WaterUsage + "','" +
                     submeters[1].CostPerCubic + "','" + submeters[1].Amount + "')", conn);
                 fillSub2a.ExecuteNonQuery();
-                MessageBox.Show("Fill sub 2a complete");
+                Console.WriteLine("Fill sub 2a complete");
 
                 SqlCommand fillSub2b = new SqlCommand("INSERT INTO submeter2B VALUES ('" + submeters[2].Month + "','" + submeters[2].Year + "','" + submeters[2].WaterUsage + "','" +
                     submeters[2].CostPerCubic + "','" + submeters[2].Amount + "')", conn);
                 fillSub2b.ExecuteNonQuery();
-                MessageBox.Show("Fill sub 2b complete");
+                Console.WriteLine("Fill sub 2b complete");
 
                 SqlCommand fillSub3a = new SqlCommand("INSERT INTO submeter3A VALUES ('" + submeters[3].Month + "','" + submeters[3].Year + "','" + submeters[3].WaterUsage + "','" +
                     submeters[3].CostPerCubic + "','" + submeters[3].Amount + "')", conn);
                 fillSub3a.ExecuteNonQuery();
-                MessageBox.Show("Fill sub 3a complete");
+                Console.WriteLine("Fill sub 3a complete");
 
                 SqlCommand fillSub3b = new SqlCommand("INSERT INTO submeter3B VALUES ('" + submeters[4].Month + "','" + submeters[4].Year + "','" + submeters[4].WaterUsage + "','" +
                     submeters[4].CostPerCubic + "','" + submeters[4].Amount + "')", conn);
                 fillSub3b.ExecuteNonQuery();
-                MessageBox.Show("Fill sub 3b complete");
+                Console.WriteLine("Fill sub 3b complete");
 
                 //close the connection to the dataset
                 conn.Close();
@@ -287,7 +305,7 @@ namespace MayniladSubmeterTracker
 
             catch (Exception ex)
             {
-                //MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
     }

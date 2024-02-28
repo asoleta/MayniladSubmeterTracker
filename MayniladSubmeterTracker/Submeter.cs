@@ -12,7 +12,7 @@ namespace MayniladSubmeterTracker
         //fields
         private int month;
         private int year;
-        private int waterUsage;
+        private double waterUsage;
         private double costPerCubic;
         private double amtDue;
 
@@ -25,7 +25,7 @@ namespace MayniladSubmeterTracker
             amtDue = 0;
         }
 
-        public Submeter(int month, int year, int waterUsage, double cost, double amtDue)
+        public Submeter(int month, int year, double waterUsage, double cost, double amtDue)
         {
             this.month = month;
             this.year = year;
@@ -46,7 +46,7 @@ namespace MayniladSubmeterTracker
             set { year = value; }
         }
 
-        public int WaterUsage
+        public double WaterUsage
         { 
             get { return waterUsage; } 
             set {  waterUsage = value; } 
