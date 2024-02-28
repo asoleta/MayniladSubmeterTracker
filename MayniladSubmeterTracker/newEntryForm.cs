@@ -86,13 +86,13 @@ namespace MayniladSubmeterTracker
             {
                 //connect to SQL Database
                 SqlConnection conn = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True");
-                
+
                 conn.Open(); //open the connection
 
                 //add the values into the database
-                //SqlCommand cmd = new SqlCommand("INSERT INTO submeterReading VALUES ('"+month+"','"+year+"','"+submeter1aValue+"','"+submeter2aValue+"'" +
-                //",'"+submeter2bValue+"','"+submeter3aValue+"','"+submeter3bValue+"','"+totalUsageValue+"','"+totalBillValue+"')", conn);
-                //cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand("INSERT INTO submeterReading VALUES ('" + month + "','" + year + "','" + submeter1aValue + "','" + submeter2aValue + "'" +
+                ",'" + submeter2bValue + "','" + submeter3aValue + "','" + submeter3bValue + "','" + totalUsageValue + "','" + totalBillValue + "')", conn);
+                cmd.ExecuteNonQuery();
 
                 //filter the database to get the specific row created and get the id number
                 string sqlQuery = $"SELECT * FROM submeterReading WHERE month = @Month AND year = @Year";
@@ -125,12 +125,11 @@ namespace MayniladSubmeterTracker
 
                     conn.Close(); //close the connection
 
-                    //calculate the difference between the current and previous month usage
-                    //then, populate the dataset with the correct information
-                    //populateDataset(CalculateUsage(conn, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue), conn);
-                    CalculateUsage(conn, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue);
-
                 }
+
+                //calculate the difference between the current and previous month usage
+                //then, populate the dataset with the correct information
+                populateDataset(CalculateUsage(conn, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue), conn);
             }
 
             catch (Exception ex)
@@ -139,59 +138,59 @@ namespace MayniladSubmeterTracker
             }
 
             //create and show the other form
-            //calculatedValues calculatedValues = new calculatedValues();
-            //calculatedValues.Show();
+            calculatedValues calculatedValues = new calculatedValues();
+            calculatedValues.Show();
 
         }
 
-        private int CalculateUsage(SqlConnection conn, int month, int year, int id, int sub1, int sub2a, int sub2b, int sub3a, int sub3b)
+        private Submeter[] CalculateUsage(SqlConnection conn, int month, int year, int id, int sub1, int sub2a, int sub2b, int sub3a, int sub3b)
         {
-            double billTotal = 6233.52;
-            double prevSub1a = 193589, prevSub2a = 486179, prevSub2b = 87990, prevSub3a = 468760, prevSub3b = 330119;
+            double billTotal = 0;
+            double prevSub1a = 0, prevSub2a = 0, prevSub2b = 0, prevSub3a = 0, prevSub3b = 0;
 
             double sub1aDiff, sub2aDiff, sub2bDiff, sub3aDiff, sub3bDiff;
             double totalUsage;
             double sub1aPercent, sub2aPercent, sub2bPercent, sub3aPercent, sub3bPercent;
             double sub1aBill, sub2aBill, sub2bBill, sub3aBill, sub3bBill;
             double sub1aCostPer, sub2aCostPer, sub2bCostPer, sub3aCostPer, sub3bCostPer;
-            
-            //conn.Open(); //open the connection
 
-            ////get the previous month information
-            //string sqlQuery = $"SELECT * FROM submeterReading WHERE id = @Id";
+            conn.Open(); //open the connection
 
-            //// Create a SqlCommand with the query and connection
-            //using (SqlCommand getPreviousMonth = new SqlCommand(sqlQuery, conn))
-            //{
-            //    // Add parameters to the SqlCommand (prevent SQL injection)
-            //    getPreviousMonth.Parameters.AddWithValue("@Id", (id-1));
+            //get the previous month information
+            string sqlQuery = $"SELECT * FROM submeterReading WHERE id = @Id";
 
-            //    // Execute the query
-            //    using (SqlDataReader reader = getPreviousMonth.ExecuteReader())
-            //    {
-            //        // Check if there are rows returned
-            //        if (reader.HasRows)
-            //        {
-            //            // Iterate through the rows
-            //            while (reader.Read())
-            //            {
-            //                // Access columns by name or index as needed
-            //                prevSub1a = Convert.ToInt32(reader["submeter1a"]);
-            //                prevSub2a = Convert.ToInt32(reader["submeter2a"]);
-            //                prevSub2b = Convert.ToInt32(reader["submeter2b"]);
-            //                prevSub3a = Convert.ToInt32(reader["submeter3a"]);
-            //                prevSub3b = Convert.ToInt32(reader["submeter3b"]);
-            //                billTotal = Convert.ToDouble(reader["billTotal"]);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            Console.WriteLine("No rows found.");
-            //        }
-            //    }
+            // Create a SqlCommand with the query and connection
+            using (SqlCommand getPreviousMonth = new SqlCommand(sqlQuery, conn))
+            {
+                // Add parameters to the SqlCommand (prevent SQL injection)
+                getPreviousMonth.Parameters.AddWithValue("@Id", (id - 1));
 
-            //    //close the connection
-            //    conn.Close();
+                // Execute the query
+                using (SqlDataReader reader = getPreviousMonth.ExecuteReader())
+                {
+                    // Check if there are rows returned
+                    if (reader.HasRows)
+                    {
+                        // Iterate through the rows
+                        while (reader.Read())
+                        {
+                            // Access columns by name or index as needed
+                            prevSub1a = Convert.ToInt32(reader["submeter1a"]);
+                            prevSub2a = Convert.ToInt32(reader["submeter2a"]);
+                            prevSub2b = Convert.ToInt32(reader["submeter2b"]);
+                            prevSub3a = Convert.ToInt32(reader["submeter3a"]);
+                            prevSub3b = Convert.ToInt32(reader["submeter3b"]);
+                            billTotal = Convert.ToDouble(reader["billTotal"]);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows found.");
+                    }
+                }
+
+                //close the connection
+                conn.Close();
 
                 //Calculation Start
                 //Calculate the difference between the previous month usage and the current month
@@ -229,6 +228,8 @@ namespace MayniladSubmeterTracker
                 sub1aCostPer = sub1aBill / sub1aDiff;
                 sub2aCostPer = sub2aBill / sub2aDiff;
 
+                //since this unit should not be using any water, to avoid dividing by 0
+                //an if statement will check the condition of the unit's water usage
                 if (sub2bBill == 0)
                 {
                     sub2bCostPer = 0;
@@ -242,73 +243,69 @@ namespace MayniladSubmeterTracker
                 sub3aCostPer = sub3aBill / sub3aDiff;
                 sub3bCostPer = sub3bBill / sub3bDiff;
 
-                Console.WriteLine("Cost Per:\n" + sub1aCostPer.ToString() + "\n" + sub2aCostPer.ToString() + "\n" + sub2bCostPer.ToString() + 
+                Console.WriteLine("Cost Per:\n" + sub1aCostPer.ToString() + "\n" + sub2aCostPer.ToString() + "\n" + sub2bCostPer.ToString() +
                     "\n" + sub3aCostPer.ToString() + "\n" + sub3bCostPer.ToString());
 
                 //Create submeter objects to store the information
-                //Submeter submeter1a = new Submeter(month, year, sub1aDiff, sub1aCostPer, sub1aBill);
-                //MessageBox.Show(submeter1a.Month.ToString() + submeter1a.Year.ToString() + sub1aDiff.ToString() + sub1aCostPer.ToString() + sub1aBill.ToString());
+                Submeter submeter1a = new Submeter(month, year, sub1aDiff, sub1aCostPer, sub1aBill);
 
-                //Submeter submeter2a = new Submeter(month, year, sub2aDiff, sub2aCostPer, sub2aBill);
-                //MessageBox.Show(submeter2a.Month.ToString() + submeter2a.Year.ToString() + sub2aDiff.ToString() + sub2aCostPer.ToString() + sub2aBill.ToString());
+                Submeter submeter2a = new Submeter(month, year, sub2aDiff, sub2aCostPer, sub2aBill);
 
-                //Submeter submeter2b = new Submeter(month, year, sub2bDiff, sub2bCostPer, sub2bBill);
-                //MessageBox.Show(submeter2b.Month.ToString() + submeter2b.Year.ToString() + sub2bDiff.ToString() + sub2bCostPer.ToString() + sub2bBill.ToString());
+                Submeter submeter2b = new Submeter(month, year, sub2bDiff, sub2bCostPer, sub2bBill);
 
-                //Submeter submeter3a = new Submeter(month, year, sub3aDiff, sub3aCostPer, sub3aBill);
-                //MessageBox.Show(submeter3a.Month.ToString() + submeter3a.Year.ToString() + sub3aDiff.ToString() + sub3aCostPer.ToString() + sub3aBill.ToString());
+                Submeter submeter3a = new Submeter(month, year, sub3aDiff, sub3aCostPer, sub3aBill);
 
-                //Submeter submeter3b = new Submeter(month, year, sub3bDiff, sub3bCostPer, sub3bBill);
-                //MessageBox.Show(submeter3b.Month.ToString() + submeter3b.Year.ToString() + sub3bDiff.ToString() + sub3bCostPer.ToString() + sub3bBill.ToString());
+                Submeter submeter3b = new Submeter(month, year, sub3bDiff, sub3bCostPer, sub3bBill);
 
-                //Submeter[] submeters = {submeter1a, submeter2a, submeter2b, submeter3a, submeter3b};
+                Submeter[] submeters = { submeter1a, submeter2a, submeter2b, submeter3a, submeter3b };
 
                 //Return the created submeter objects list
-                return 0;
+                return submeters;
+            }
         }
 
         //takes information from the submeter objects and puts them into the correct table
-        //private void populateDataset(Submeter[] submeters, SqlConnection conn)
-        //{
-        //    try
-        //    {
-        //        //open connection to the dataset
-        //        conn.Open();
+        private void populateDataset(Submeter[] submeters, SqlConnection conn)
+        {
+            try
+            {
+                //open connection to the dataset
+                conn.Open();
 
-        //        //add the values into the database
-        //        SqlCommand fillSub1a = new SqlCommand("INSERT INTO submeter1A VALUES ('" + submeters[0].Month + "','" + submeters[0].Year + "','" + submeters[0].WaterUsage + "','" +
-        //            submeters[0].CostPerCubic + "','" + submeters[0].Amount + "')", conn);
-        //        fillSub1a.ExecuteNonQuery();
-        //        MessageBox.Show("Fill sub 1a complete");
+                //add the values into the database
+                SqlCommand fillSub1a = new SqlCommand("INSERT INTO submeter1A VALUES ('" + submeters[0].Month + "','" + submeters[0].Year + "','" + submeters[0].WaterUsage + "','" +
+                    submeters[0].CostPerCubic + "','" + submeters[0].Amount + "')", conn);
+                fillSub1a.ExecuteNonQuery();
+                Console.WriteLine("Fill sub 1a complete");
 
-        //        SqlCommand fillSub2a = new SqlCommand("INSERT INTO submeter2A VALUES ('" + submeters[1].Month + "','" + submeters[1].Year + "','" + submeters[1].WaterUsage + "','" +
-        //            submeters[1].CostPerCubic + "','" + submeters[1].Amount + "')", conn);
-        //        fillSub2a.ExecuteNonQuery();
-        //        MessageBox.Show("Fill sub 2a complete");
+                SqlCommand fillSub2a = new SqlCommand("INSERT INTO submeter2A VALUES ('" + submeters[1].Month + "','" + submeters[1].Year + "','" + submeters[1].WaterUsage + "','" +
+                    submeters[1].CostPerCubic + "','" + submeters[1].Amount + "')", conn);
+                fillSub2a.ExecuteNonQuery();
+                Console.WriteLine("Fill sub 2a complete");
 
-        //        SqlCommand fillSub2b = new SqlCommand("INSERT INTO submeter2B VALUES ('" + submeters[2].Month + "','" + submeters[2].Year + "','" + submeters[2].WaterUsage + "','" +
-        //            submeters[2].CostPerCubic + "','" + submeters[2].Amount + "')", conn);
-        //        fillSub2b.ExecuteNonQuery();
-        //        MessageBox.Show("Fill sub 2b complete");
+                SqlCommand fillSub2b = new SqlCommand("INSERT INTO submeter2B VALUES ('" + submeters[2].Month + "','" + submeters[2].Year + "','" + submeters[2].WaterUsage + "','" +
+                    submeters[2].CostPerCubic + "','" + submeters[2].Amount + "')", conn);
+                fillSub2b.ExecuteNonQuery();
+                Console.WriteLine("Fill sub 2b complete");
 
-        //        SqlCommand fillSub3a = new SqlCommand("INSERT INTO submeter3A VALUES ('" + submeters[3].Month + "','" + submeters[3].Year + "','" + submeters[3].WaterUsage + "','" +
-        //            submeters[3].CostPerCubic + "','" + submeters[3].Amount + "')", conn);
-        //        fillSub3a.ExecuteNonQuery();
-        //        MessageBox.Show("Fill sub 3a complete");
+                SqlCommand fillSub3a = new SqlCommand("INSERT INTO submeter3A VALUES ('" + submeters[3].Month + "','" + submeters[3].Year + "','" + submeters[3].WaterUsage + "','" +
+                    submeters[3].CostPerCubic + "','" + submeters[3].Amount + "')", conn);
+                fillSub3a.ExecuteNonQuery();
+                Console.WriteLine("Fill sub 3a complete");
 
-        //        SqlCommand fillSub3b = new SqlCommand("INSERT INTO submeter3B VALUES ('" + submeters[4].Month + "','" + submeters[4].Year + "','" + submeters[4].WaterUsage + "','" +
-        //            submeters[4].CostPerCubic + "','" + submeters[4].Amount + "')", conn);
-        //        fillSub3b.ExecuteNonQuery();
-        //        MessageBox.Show("Fill sub 3b complete");
+                SqlCommand fillSub3b = new SqlCommand("INSERT INTO submeter3B VALUES ('" + submeters[4].Month + "','" + submeters[4].Year + "','" + submeters[4].WaterUsage + "','" +
+                    submeters[4].CostPerCubic + "','" + submeters[4].Amount + "')", conn);
+                fillSub3b.ExecuteNonQuery();
+                Console.WriteLine("Fill sub 3b complete");
 
-        //        //close the connection to the dataset
-        //        conn.Close();
-        //    }
+                //close the connection to the dataset
+                conn.Close();
+            }
 
-        //    catch (Exception ex)
-        //    {
-        //        //MessageBox.Show($"Error: {ex.Message}");
-        //    }
-        //}
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
     }
 }
