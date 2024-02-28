@@ -157,7 +157,7 @@ namespace MayniladSubmeterTracker
             conn.Open(); //open the connection
 
             //get the previous month information
-            string sqlQuery = $"SELECT * FROM submeterReading WHERE id = @Id";
+            string sqlQuery = $"SELECT TOP 1 * FROM submeterReading WHERE id < @Id ORDER BY id DESC";
 
             // Create a SqlCommand with the query and connection
             using (SqlCommand getPreviousMonth = new SqlCommand(sqlQuery, conn))
