@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
@@ -73,6 +74,29 @@ namespace MayniladSubmeterTracker
 
             //hide the current form
             this.Close();
+
+            try
+            {
+                //connect to SQL Database
+                SqlConnection conn = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True");
+
+                conn.Open(); //open the connection
+
+                //add the values into the database
+                SqlCommand cmd = new SqlCommand("INSERT INTO searchQueries VALUES ('" + month + "','" + year + "')", conn);
+                cmd.ExecuteNonQuery();
+
+                conn.Close(); //close the connection
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            //create and show the other form
+            filterDataResults filterDataResults = new filterDataResults();
+            filterDataResults.Show();
         }
     }
 }

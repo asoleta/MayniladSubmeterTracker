@@ -76,7 +76,7 @@
             this.yearLbl.AutoSize = true;
             this.yearLbl.Font = new System.Drawing.Font("Yu Gothic Medium", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.yearLbl.ForeColor = System.Drawing.Color.White;
-            this.yearLbl.Location = new System.Drawing.Point(294, 186);
+            this.yearLbl.Location = new System.Drawing.Point(284, 186);
             this.yearLbl.Name = "yearLbl";
             this.yearLbl.Size = new System.Drawing.Size(75, 31);
             this.yearLbl.TabIndex = 3;
@@ -93,9 +93,9 @@
             // yearTB
             // 
             this.yearTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.yearTB.Location = new System.Drawing.Point(375, 187);
+            this.yearTB.Location = new System.Drawing.Point(365, 187);
             this.yearTB.Name = "yearTB";
-            this.yearTB.Size = new System.Drawing.Size(46, 31);
+            this.yearTB.Size = new System.Drawing.Size(79, 31);
             this.yearTB.TabIndex = 5;
             // 
             // button1
