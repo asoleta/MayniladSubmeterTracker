@@ -64,5 +64,15 @@ namespace MayniladSubmeterTracker
             homepage homepage = new homepage();
             homepage.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //get the input from the textboxes and convert to required data type
+            int month = int.Parse(monthTB.Text);
+            int year = int.Parse(yearTB.Text);
+
+            //hide the current form
+            this.Close();
+        }
     }
 }

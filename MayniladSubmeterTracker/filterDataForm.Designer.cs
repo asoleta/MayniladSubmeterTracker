@@ -32,8 +32,8 @@
             this.titleLbl = new System.Windows.Forms.Label();
             this.monthLbl = new System.Windows.Forms.Label();
             this.yearLbl = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.monthTB = new System.Windows.Forms.TextBox();
+            this.yearTB = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -82,21 +82,21 @@
             this.yearLbl.TabIndex = 3;
             this.yearLbl.Text = "Year:";
             // 
-            // textBox1
+            // monthTB
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(217, 186);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(46, 31);
-            this.textBox1.TabIndex = 4;
+            this.monthTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthTB.Location = new System.Drawing.Point(217, 186);
+            this.monthTB.Name = "monthTB";
+            this.monthTB.Size = new System.Drawing.Size(46, 31);
+            this.monthTB.TabIndex = 4;
             // 
-            // textBox2
+            // yearTB
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(375, 187);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(46, 31);
-            this.textBox2.TabIndex = 5;
+            this.yearTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.yearTB.Location = new System.Drawing.Point(375, 187);
+            this.yearTB.Name = "yearTB";
+            this.yearTB.Size = new System.Drawing.Size(46, 31);
+            this.yearTB.TabIndex = 5;
             // 
             // button1
             // 
@@ -110,6 +110,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // filterDataForm
             // 
@@ -118,8 +119,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(154)))), ((int)(((byte)(164)))));
             this.ClientSize = new System.Drawing.Size(575, 389);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.yearTB);
+            this.Controls.Add(this.monthTB);
             this.Controls.Add(this.yearLbl);
             this.Controls.Add(this.monthLbl);
             this.Controls.Add(this.titleLbl);
@@ -139,8 +140,8 @@
         private System.Windows.Forms.Label titleLbl;
         private System.Windows.Forms.Label monthLbl;
         private System.Windows.Forms.Label yearLbl;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox monthTB;
+        private System.Windows.Forms.TextBox yearTB;
         private System.Windows.Forms.Button button1;
     }
 }
