@@ -129,7 +129,7 @@ namespace MayniladSubmeterTracker
 
                 //calculate the difference between the current and previous month usage
                 //then, populate the dataset with the correct information
-                populateDataset(CalculateUsage(conn, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue), conn);
+                populateDataset(CalculateUsage(conn, totalBillValue, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue), conn);
             }
 
             catch (Exception ex)
@@ -143,9 +143,8 @@ namespace MayniladSubmeterTracker
 
         }
 
-        private Submeter[] CalculateUsage(SqlConnection conn, int month, int year, int id, int sub1, int sub2a, int sub2b, int sub3a, int sub3b)
+        private Submeter[] CalculateUsage(SqlConnection conn, double totalBillValue, int month, int year, int id, int sub1, int sub2a, int sub2b, int sub3a, int sub3b)
         {
-            double billTotal = 0;
             double prevSub1a = 0, prevSub2a = 0, prevSub2b = 0, prevSub3a = 0, prevSub3b = 0;
 
             double sub1aDiff, sub2aDiff, sub2bDiff, sub3aDiff, sub3bDiff;
@@ -163,7 +162,7 @@ namespace MayniladSubmeterTracker
             using (SqlCommand getPreviousMonth = new SqlCommand(sqlQuery, conn))
             {
                 // Add parameters to the SqlCommand (prevent SQL injection)
-                getPreviousMonth.Parameters.AddWithValue("@Id", (id - 1));
+                getPreviousMonth.Parameters.AddWithValue("@Id", id);
 
                 // Execute the query
                 using (SqlDataReader reader = getPreviousMonth.ExecuteReader())
@@ -180,7 +179,6 @@ namespace MayniladSubmeterTracker
                             prevSub2b = Convert.ToInt32(reader["submeter2b"]);
                             prevSub3a = Convert.ToInt32(reader["submeter3a"]);
                             prevSub3b = Convert.ToInt32(reader["submeter3b"]);
-                            billTotal = Convert.ToDouble(reader["billTotal"]);
                         }
                     }
                     else
@@ -216,11 +214,11 @@ namespace MayniladSubmeterTracker
                 Console.WriteLine("Percent\n" + sub1aPercent.ToString() + "\n" + sub2aPercent.ToString() + "\n" + sub2bPercent.ToString() + "\n" + sub3aPercent.ToString() + "\n" + sub3bPercent.ToString());
 
                 //Calculate the individual bills
-                sub1aBill = billTotal * sub1aPercent;
-                sub2aBill = billTotal * sub2aPercent;
-                sub2bBill = billTotal * sub2bPercent;
-                sub3aBill = billTotal * sub3aPercent;
-                sub3bBill = billTotal * sub3bPercent;
+                sub1aBill = totalBillValue * sub1aPercent;
+                sub2aBill = totalBillValue * sub2aPercent;
+                sub2bBill = totalBillValue * sub2bPercent;
+                sub3aBill = totalBillValue * sub3aPercent;
+                sub3bBill = totalBillValue * sub3bPercent;
 
                 Console.WriteLine("Bill\n" + sub1aBill.ToString() + "\n" + sub2aBill.ToString() + "\n" + sub2bBill.ToString() + "\n" + sub3aBill.ToString() + "\n" + sub3bBill.ToString());
 
