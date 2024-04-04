@@ -311,7 +311,7 @@ namespace MayniladSubmeterTracker
                             Document document = new Document();
 
                             // Create iTextSharp.text.Font objects for header and body text with different sizes
-                            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20);
+                            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 40);
 
                             // Define the output file path to the Downloads folder
                             string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
@@ -324,10 +324,17 @@ namespace MayniladSubmeterTracker
                             document.Open();
 
                             // Add content to the document
-                            Paragraph title = new Paragraph("IyaSandra Property Rental", headerFont);
-                            title.Alignment = Element.ALIGN_CENTER;
-                            // Add spacing after title
-                            title.SpacingAfter = 30f;
+                            // Load the image
+                            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\asoleta\\OneDrive - Desales University\\Documents\\School\\CS-453 Senior Sem\\Capstone Project\\MayniladSubmeterTracker\\MayniladSubmeterTracker\\Resources\\IyaSandraLogo.png");
+
+                            // Set the position and size of the image
+                            img.ScaleToFit(400f, 300f); // Adjust size as needed
+
+                            // Add the image to the document
+                            img.SetAbsolutePosition(300f, 600f);
+                            document.Add(img);
+
+                            Paragraph title = new Paragraph("INVOICE", headerFont);
                             document.Add(title);
 
                             Paragraph invoiceDate = new Paragraph("Billing Month: " + monthSearch.ToString() + "/" + yearSearch.ToString());
@@ -345,21 +352,23 @@ namespace MayniladSubmeterTracker
                             // Set width percentage
                             table.WidthPercentage = 100;
 
-                            // Add table content
-                            table.AddCell(GetCell("Total Water Consumption: ", 5f));
-                            table.AddCell(GetCell(waterUsage.ToString(), 5f));
-                            table.AddCell(GetCell("Amount due: ", 5f));
-                            table.AddCell(GetCell(amtDue.ToString("0.00") + "P", 5f));
-
-                            document.Add(table);
-
-                            // Function to create a PdfPCell with padding
-                            PdfPCell GetCell(string text, float padding)
+                            // Function to create a PdfPCell with padding and background color
+                            PdfPCell GetCell(string text, BaseColor backgroundColor, float padding)
                             {
                                 PdfPCell cell = new PdfPCell(new Phrase(text));
                                 cell.Padding = padding;
+                                cell.BackgroundColor = backgroundColor; // Set background color
                                 return cell;
                             }
+
+                            // Add table content
+                            table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
+
+                            document.Add(table);
+
 
                             //close the document
                             document.Close();
