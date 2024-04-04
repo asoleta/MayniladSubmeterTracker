@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient; //allows you to connect to sql database
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace MayniladSubmeterTracker
 {
@@ -243,7 +246,29 @@ namespace MayniladSubmeterTracker
         //generate reports button to create pdf invoices for each tenant
         private void button1_Click(object sender, EventArgs e)
         {
+            // Create a new document
+            Document document = new Document();
 
+            // Define the output file path to the Downloads folder
+            string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+            string outputPath = Path.Combine(downloadsPath, "output.pdf");
+
+            // Create a PdfWriter to write the document to a file
+            PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
+
+            // Open the document for writing
+            document.Open();
+
+            // Add content to the document
+            Paragraph paragraph = new Paragraph("Hello, world! This is a simple PDF generated using iTextSharp.");
+            document.Add(paragraph);
+
+            // Close the document
+            document.Close();
+
+            // Display a message indicating successful generation
+            Console.WriteLine($"PDF generated successfully. File saved to: {outputPath}");
         }
     }
 }
+
