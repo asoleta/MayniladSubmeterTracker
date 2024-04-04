@@ -54,7 +54,6 @@ namespace MayniladSubmeterTracker
             }
 
             titleLbl.Font = titleFont;
-            closeBtn.Font = closeBtnFont;
         }
 
         private void button1_Click(object sender, EventArgs e)

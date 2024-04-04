@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.closeBtn = new System.Windows.Forms.Label();
             this.entryLbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,21 +46,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.totalUsageTB = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.backBtn = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.backBtn)).BeginInit();
             this.SuspendLayout();
-            // 
-            // closeBtn
-            // 
-            this.closeBtn.AutoSize = true;
-            this.closeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.closeBtn.Font = new System.Drawing.Font("Yu Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(154)))), ((int)(((byte)(164)))));
-            this.closeBtn.Location = new System.Drawing.Point(521, 9);
-            this.closeBtn.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.closeBtn.Name = "closeBtn";
-            this.closeBtn.Size = new System.Drawing.Size(40, 42);
-            this.closeBtn.TabIndex = 0;
-            this.closeBtn.Text = "X";
-            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
             // entryLbl
             // 
@@ -249,11 +236,24 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Total Charged Usage:";
             // 
+            // backBtn
+            // 
+            this.backBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.backBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.backBtn;
+            this.backBtn.Location = new System.Drawing.Point(12, 12);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(44, 43);
+            this.backBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.backBtn.TabIndex = 20;
+            this.backBtn.TabStop = false;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
+            // 
             // newEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 760);
+            this.Controls.Add(this.backBtn);
             this.Controls.Add(this.totalUsageTB);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.billTotalTB);
@@ -272,21 +272,19 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.entryLbl);
-            this.Controls.Add(this.closeBtn);
             this.Font = new System.Drawing.Font("Yu Gothic Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "newEntryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "newEntryForm";
+            ((System.ComponentModel.ISupportInitialize)(this.backBtn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label closeBtn;
         private System.Windows.Forms.Label entryLbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
@@ -305,5 +303,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox totalUsageTB;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox backBtn;
     }
 }

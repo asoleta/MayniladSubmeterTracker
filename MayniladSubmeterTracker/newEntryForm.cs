@@ -54,15 +54,6 @@ namespace MayniladSubmeterTracker
             entryLbl.Font = titleFont;
         }
 
-        //the close button closes the current form and returns to the homepage
-        private void closeBtn_Click(object sender, EventArgs e)
-        {
-            this.Close();
-
-            homepage homepage = new homepage();
-            homepage.Show();
-        }
-
         private void submitBtn_Click(object sender, EventArgs e)
         {
 
@@ -305,6 +296,15 @@ namespace MayniladSubmeterTracker
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            homepage homepage = new homepage();
+            homepage.Show();
+
         }
     }
 }
