@@ -190,6 +190,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Generate Reports";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // unit2aGB
             // 
@@ -539,7 +540,7 @@
             this.totalBillTB.Size = new System.Drawing.Size(166, 33);
             this.totalBillTB.TabIndex = 13;
             // 
-            // calculatedValues
+            // filterDataResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -556,7 +557,7 @@
             this.Controls.Add(this.dateLbl);
             this.Controls.Add(this.closeBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "calculatedValues";
+            this.Name = "filterDataResults";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "calculatedValues";
             this.unit1GB.ResumeLayout(false);

@@ -227,7 +227,6 @@ namespace MayniladSubmeterTracker
                 }
             }
 
-            MessageBox.Show(monthSearch.ToString() + " " + yearSearch.ToString());
         }
 
         //the close button stops and closes the application 
@@ -239,6 +238,12 @@ namespace MayniladSubmeterTracker
             //show the homepage
             homepage homepage = new homepage();
             homepage.Show();
+        }
+
+        //generate reports button to create pdf invoices for each tenant
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

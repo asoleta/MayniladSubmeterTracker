@@ -28,26 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.closeBtn = new System.Windows.Forms.Label();
             this.titleLbl = new System.Windows.Forms.Label();
             this.monthLbl = new System.Windows.Forms.Label();
             this.yearLbl = new System.Windows.Forms.Label();
             this.monthTB = new System.Windows.Forms.TextBox();
             this.yearTB = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.backBtn = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.backBtn)).BeginInit();
             this.SuspendLayout();
-            // 
-            // closeBtn
-            // 
-            this.closeBtn.AutoSize = true;
-            this.closeBtn.Font = new System.Drawing.Font("Yu Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeBtn.ForeColor = System.Drawing.Color.White;
-            this.closeBtn.Location = new System.Drawing.Point(523, 9);
-            this.closeBtn.Name = "closeBtn";
-            this.closeBtn.Size = new System.Drawing.Size(40, 42);
-            this.closeBtn.TabIndex = 0;
-            this.closeBtn.Text = "X";
-            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
             // titleLbl
             // 
@@ -112,36 +101,48 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // backBtn
+            // 
+            this.backBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.backBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.backBtn;
+            this.backBtn.Location = new System.Drawing.Point(12, 12);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(44, 43);
+            this.backBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.backBtn.TabIndex = 7;
+            this.backBtn.TabStop = false;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
+            // 
             // filterDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(154)))), ((int)(((byte)(164)))));
             this.ClientSize = new System.Drawing.Size(575, 389);
+            this.Controls.Add(this.backBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.yearTB);
             this.Controls.Add(this.monthTB);
             this.Controls.Add(this.yearLbl);
             this.Controls.Add(this.monthLbl);
             this.Controls.Add(this.titleLbl);
-            this.Controls.Add(this.closeBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "filterDataForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "calculatedValuesForm";
+            ((System.ComponentModel.ISupportInitialize)(this.backBtn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label closeBtn;
         private System.Windows.Forms.Label titleLbl;
         private System.Windows.Forms.Label monthLbl;
         private System.Windows.Forms.Label yearLbl;
         private System.Windows.Forms.TextBox monthTB;
         private System.Windows.Forms.TextBox yearTB;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox backBtn;
     }
 }

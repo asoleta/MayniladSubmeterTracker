@@ -57,15 +57,6 @@ namespace MayniladSubmeterTracker
             closeBtn.Font = closeBtnFont;
         }
 
-        //the close button stops and closes the application 
-        private void closeBtn_Click(object sender, EventArgs e)
-        {
-            this.Close();
-
-            homepage homepage = new homepage();
-            homepage.Show();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             //get the input from the textboxes and convert to required data type
@@ -97,6 +88,14 @@ namespace MayniladSubmeterTracker
             //create and show the other form
             filterDataResults filterDataResults = new filterDataResults();
             filterDataResults.Show();
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            homepage homepage = new homepage();
+            homepage.Show();
         }
     }
 }
