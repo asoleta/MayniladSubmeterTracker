@@ -315,7 +315,8 @@ namespace MayniladSubmeterTracker
 
                             // Define the output file path to the Downloads folder
                             string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
-                            string outputPath = Path.Combine(downloadsPath, "INVOICE_1A.pdf");
+                            string fileName = $"INVOICE_1a_{monthSearch}_{yearSearch}.pdf";
+                            string outputPath = Path.Combine(downloadsPath, fileName);
 
                             // Create a PdfWriter to write the document to a file
                             PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
@@ -409,7 +410,8 @@ namespace MayniladSubmeterTracker
 
                             // Define the output file path to the Downloads folder
                             string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
-                            string outputPath = Path.Combine(downloadsPath, "INVOICE_2A.pdf");
+                            string fileName = $"INVOICE_2a_{monthSearch}_{yearSearch}.pdf";
+                            string outputPath = Path.Combine(downloadsPath, fileName);
 
                             // Create a PdfWriter to write the document to a file
                             PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
@@ -503,7 +505,8 @@ namespace MayniladSubmeterTracker
 
                             // Define the output file path to the Downloads folder
                             string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
-                            string outputPath = Path.Combine(downloadsPath, "INVOICE_2B.pdf");
+                            string fileName = $"INVOICE_2b_{monthSearch}_{yearSearch}.pdf";
+                            string outputPath = Path.Combine(downloadsPath, fileName);
 
                             // Create a PdfWriter to write the document to a file
                             PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
@@ -597,7 +600,8 @@ namespace MayniladSubmeterTracker
 
                             // Define the output file path to the Downloads folder
                             string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
-                            string outputPath = Path.Combine(downloadsPath, "INVOICE_3A.pdf");
+                            string fileName = $"INVOICE_3a_{monthSearch}_{yearSearch}.pdf";
+                            string outputPath = Path.Combine(downloadsPath, fileName);
 
                             // Create a PdfWriter to write the document to a file
                             PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
@@ -691,7 +695,8 @@ namespace MayniladSubmeterTracker
 
                             // Define the output file path to the Downloads folder
                             string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
-                            string outputPath = Path.Combine(downloadsPath, "INVOICE_3B.pdf");
+                            string fileName = $"INVOICE_3b_{monthSearch}_{yearSearch}.pdf";
+                            string outputPath = Path.Combine(downloadsPath, fileName);
 
                             // Create a PdfWriter to write the document to a file
                             PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
