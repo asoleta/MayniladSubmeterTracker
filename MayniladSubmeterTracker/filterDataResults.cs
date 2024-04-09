@@ -53,6 +53,9 @@ namespace MayniladSubmeterTracker
                             // Assign month and year values from the query result
                             monthSearch = Convert.ToInt32(reader["month"]);
                             yearSearch = Convert.ToInt32(reader["year"]);
+
+                            //display in the date textbox
+                            dateTB.Text = monthSearch.ToString() + "/" + yearSearch.ToString();
                         }
                         else
                         {
