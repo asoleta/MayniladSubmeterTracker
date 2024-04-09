@@ -382,6 +382,383 @@ namespace MayniladSubmeterTracker
                         }
                     }
                 }
+                //Submeter 1a end
+
+                //Submeter 2a
+                using (SqlCommand command = new SqlCommand(querySub2a, connection))
+                {
+                    // Add parameters to the SqlCommand
+                    command.Parameters.AddWithValue("@Month", monthSearch);
+                    command.Parameters.AddWithValue("@Year", yearSearch);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Access the columns by name and store them in variables
+                            waterUsage = reader.GetInt32(reader.GetOrdinal("waterUsage"));
+                            cost = Convert.ToDouble(reader["costPerCubic"]);
+                            amtDue = Convert.ToDouble(reader["amtDue"]);
+
+                            //Save the information in a PDF Invoice
+                            // Create a new document
+                            Document document = new Document();
+
+                            // Create iTextSharp.text.Font objects for header and body text with different sizes
+                            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 40);
+
+                            // Define the output file path to the Downloads folder
+                            string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+                            string outputPath = Path.Combine(downloadsPath, "INVOICE_2A.pdf");
+
+                            // Create a PdfWriter to write the document to a file
+                            PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
+
+                            // Open the document for writing
+                            document.Open();
+
+                            // Add content to the document
+                            // Load the image
+                            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\asoleta\\OneDrive - Desales University\\Documents\\School\\CS-453 Senior Sem\\Capstone Project\\MayniladSubmeterTracker\\MayniladSubmeterTracker\\Resources\\IyaSandraLogo.png");
+
+                            // Set the position and size of the image
+                            img.ScaleToFit(400f, 300f); // Adjust size as needed
+
+                            // Add the image to the document
+                            img.SetAbsolutePosition(300f, 600f);
+                            document.Add(img);
+
+                            Paragraph title = new Paragraph("INVOICE", headerFont);
+                            document.Add(title);
+
+                            Paragraph invoiceDate = new Paragraph("Billing Month: " + monthSearch.ToString() + "/" + yearSearch.ToString());
+                            // Add spacing after invoiceDate
+                            invoiceDate.SpacingAfter = 10f;
+                            document.Add(invoiceDate);
+
+                            Paragraph invoiceTenant = new Paragraph("Subunit: 2a");
+                            // Add spacing after invoiceTenant
+                            invoiceTenant.SpacingAfter = 50f;
+                            document.Add(invoiceTenant);
+
+                            // Create a table with 2 columns
+                            PdfPTable table = new PdfPTable(2);
+                            // Set width percentage
+                            table.WidthPercentage = 100;
+
+                            // Function to create a PdfPCell with padding and background color
+                            PdfPCell GetCell(string text, BaseColor backgroundColor, float padding)
+                            {
+                                PdfPCell cell = new PdfPCell(new Phrase(text));
+                                cell.Padding = padding;
+                                cell.BackgroundColor = backgroundColor; // Set background color
+                                return cell;
+                            }
+
+                            // Add table content
+                            table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
+
+                            document.Add(table);
+
+
+                            //close the document
+                            document.Close();
+
+                            // Display a message indicating successful generation
+                            MessageBox.Show($"PDF generated successfully. File saved to: {outputPath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+                //Submeter 2a end
+
+                //Submeter 2b
+                using (SqlCommand command = new SqlCommand(querySub2b, connection))
+                {
+                    // Add parameters to the SqlCommand
+                    command.Parameters.AddWithValue("@Month", monthSearch);
+                    command.Parameters.AddWithValue("@Year", yearSearch);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Access the columns by name and store them in variables
+                            waterUsage = reader.GetInt32(reader.GetOrdinal("waterUsage"));
+                            cost = Convert.ToDouble(reader["costPerCubic"]);
+                            amtDue = Convert.ToDouble(reader["amtDue"]);
+
+                            //Save the information in a PDF Invoice
+                            // Create a new document
+                            Document document = new Document();
+
+                            // Create iTextSharp.text.Font objects for header and body text with different sizes
+                            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 40);
+
+                            // Define the output file path to the Downloads folder
+                            string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+                            string outputPath = Path.Combine(downloadsPath, "INVOICE_2B.pdf");
+
+                            // Create a PdfWriter to write the document to a file
+                            PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
+
+                            // Open the document for writing
+                            document.Open();
+
+                            // Add content to the document
+                            // Load the image
+                            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\asoleta\\OneDrive - Desales University\\Documents\\School\\CS-453 Senior Sem\\Capstone Project\\MayniladSubmeterTracker\\MayniladSubmeterTracker\\Resources\\IyaSandraLogo.png");
+
+                            // Set the position and size of the image
+                            img.ScaleToFit(400f, 300f); // Adjust size as needed
+
+                            // Add the image to the document
+                            img.SetAbsolutePosition(300f, 600f);
+                            document.Add(img);
+
+                            Paragraph title = new Paragraph("INVOICE", headerFont);
+                            document.Add(title);
+
+                            Paragraph invoiceDate = new Paragraph("Billing Month: " + monthSearch.ToString() + "/" + yearSearch.ToString());
+                            // Add spacing after invoiceDate
+                            invoiceDate.SpacingAfter = 10f;
+                            document.Add(invoiceDate);
+
+                            Paragraph invoiceTenant = new Paragraph("Subunit: 2b");
+                            // Add spacing after invoiceTenant
+                            invoiceTenant.SpacingAfter = 50f;
+                            document.Add(invoiceTenant);
+
+                            // Create a table with 2 columns
+                            PdfPTable table = new PdfPTable(2);
+                            // Set width percentage
+                            table.WidthPercentage = 100;
+
+                            // Function to create a PdfPCell with padding and background color
+                            PdfPCell GetCell(string text, BaseColor backgroundColor, float padding)
+                            {
+                                PdfPCell cell = new PdfPCell(new Phrase(text));
+                                cell.Padding = padding;
+                                cell.BackgroundColor = backgroundColor; // Set background color
+                                return cell;
+                            }
+
+                            // Add table content
+                            table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
+
+                            document.Add(table);
+
+
+                            //close the document
+                            document.Close();
+
+                            // Display a message indicating successful generation
+                            MessageBox.Show($"PDF generated successfully. File saved to: {outputPath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+                //Submeter 2b end
+
+                //Submeter 3a
+                using (SqlCommand command = new SqlCommand(querySub3a, connection))
+                {
+                    // Add parameters to the SqlCommand
+                    command.Parameters.AddWithValue("@Month", monthSearch);
+                    command.Parameters.AddWithValue("@Year", yearSearch);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Access the columns by name and store them in variables
+                            waterUsage = reader.GetInt32(reader.GetOrdinal("waterUsage"));
+                            cost = Convert.ToDouble(reader["costPerCubic"]);
+                            amtDue = Convert.ToDouble(reader["amtDue"]);
+
+                            //Save the information in a PDF Invoice
+                            // Create a new document
+                            Document document = new Document();
+
+                            // Create iTextSharp.text.Font objects for header and body text with different sizes
+                            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 40);
+
+                            // Define the output file path to the Downloads folder
+                            string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+                            string outputPath = Path.Combine(downloadsPath, "INVOICE_3A.pdf");
+
+                            // Create a PdfWriter to write the document to a file
+                            PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
+
+                            // Open the document for writing
+                            document.Open();
+
+                            // Add content to the document
+                            // Load the image
+                            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\asoleta\\OneDrive - Desales University\\Documents\\School\\CS-453 Senior Sem\\Capstone Project\\MayniladSubmeterTracker\\MayniladSubmeterTracker\\Resources\\IyaSandraLogo.png");
+
+                            // Set the position and size of the image
+                            img.ScaleToFit(400f, 300f); // Adjust size as needed
+
+                            // Add the image to the document
+                            img.SetAbsolutePosition(300f, 600f);
+                            document.Add(img);
+
+                            Paragraph title = new Paragraph("INVOICE", headerFont);
+                            document.Add(title);
+
+                            Paragraph invoiceDate = new Paragraph("Billing Month: " + monthSearch.ToString() + "/" + yearSearch.ToString());
+                            // Add spacing after invoiceDate
+                            invoiceDate.SpacingAfter = 10f;
+                            document.Add(invoiceDate);
+
+                            Paragraph invoiceTenant = new Paragraph("Subunit: 3a");
+                            // Add spacing after invoiceTenant
+                            invoiceTenant.SpacingAfter = 50f;
+                            document.Add(invoiceTenant);
+
+                            // Create a table with 2 columns
+                            PdfPTable table = new PdfPTable(2);
+                            // Set width percentage
+                            table.WidthPercentage = 100;
+
+                            // Function to create a PdfPCell with padding and background color
+                            PdfPCell GetCell(string text, BaseColor backgroundColor, float padding)
+                            {
+                                PdfPCell cell = new PdfPCell(new Phrase(text));
+                                cell.Padding = padding;
+                                cell.BackgroundColor = backgroundColor; // Set background color
+                                return cell;
+                            }
+
+                            // Add table content
+                            table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
+
+                            document.Add(table);
+
+
+                            //close the document
+                            document.Close();
+
+                            // Display a message indicating successful generation
+                            MessageBox.Show($"PDF generated successfully. File saved to: {outputPath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+                //Submeter 3a end
+
+                //Submeter 3b
+                using (SqlCommand command = new SqlCommand(querySub3b, connection))
+                {
+                    // Add parameters to the SqlCommand
+                    command.Parameters.AddWithValue("@Month", monthSearch);
+                    command.Parameters.AddWithValue("@Year", yearSearch);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Access the columns by name and store them in variables
+                            waterUsage = reader.GetInt32(reader.GetOrdinal("waterUsage"));
+                            cost = Convert.ToDouble(reader["costPerCubic"]);
+                            amtDue = Convert.ToDouble(reader["amtDue"]);
+
+                            //Save the information in a PDF Invoice
+                            // Create a new document
+                            Document document = new Document();
+
+                            // Create iTextSharp.text.Font objects for header and body text with different sizes
+                            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 40);
+
+                            // Define the output file path to the Downloads folder
+                            string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+                            string outputPath = Path.Combine(downloadsPath, "INVOICE_3B.pdf");
+
+                            // Create a PdfWriter to write the document to a file
+                            PdfWriter.GetInstance(document, new FileStream(outputPath, FileMode.Create));
+
+                            // Open the document for writing
+                            document.Open();
+
+                            // Add content to the document
+                            // Load the image
+                            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\asoleta\\OneDrive - Desales University\\Documents\\School\\CS-453 Senior Sem\\Capstone Project\\MayniladSubmeterTracker\\MayniladSubmeterTracker\\Resources\\IyaSandraLogo.png");
+
+                            // Set the position and size of the image
+                            img.ScaleToFit(400f, 300f); // Adjust size as needed
+
+                            // Add the image to the document
+                            img.SetAbsolutePosition(300f, 600f);
+                            document.Add(img);
+
+                            Paragraph title = new Paragraph("INVOICE", headerFont);
+                            document.Add(title);
+
+                            Paragraph invoiceDate = new Paragraph("Billing Month: " + monthSearch.ToString() + "/" + yearSearch.ToString());
+                            // Add spacing after invoiceDate
+                            invoiceDate.SpacingAfter = 10f;
+                            document.Add(invoiceDate);
+
+                            Paragraph invoiceTenant = new Paragraph("Subunit: 3b");
+                            // Add spacing after invoiceTenant
+                            invoiceTenant.SpacingAfter = 50f;
+                            document.Add(invoiceTenant);
+
+                            // Create a table with 2 columns
+                            PdfPTable table = new PdfPTable(2);
+                            // Set width percentage
+                            table.WidthPercentage = 100;
+
+                            // Function to create a PdfPCell with padding and background color
+                            PdfPCell GetCell(string text, BaseColor backgroundColor, float padding)
+                            {
+                                PdfPCell cell = new PdfPCell(new Phrase(text));
+                                cell.Padding = padding;
+                                cell.BackgroundColor = backgroundColor; // Set background color
+                                return cell;
+                            }
+
+                            // Add table content
+                            table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
+
+                            document.Add(table);
+
+
+                            //close the document
+                            document.Close();
+
+                            // Display a message indicating successful generation
+                            MessageBox.Show($"PDF generated successfully. File saved to: {outputPath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+                //Submeter 3b end
             }
         }
     }
