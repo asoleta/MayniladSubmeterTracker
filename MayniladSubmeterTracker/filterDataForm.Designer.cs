@@ -104,7 +104,7 @@
             // backBtn
             // 
             this.backBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.backBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.backBtn;
+            this.backBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.back_arrow_1;
             this.backBtn.Location = new System.Drawing.Point(12, 12);
             this.backBtn.Name = "backBtn";
             this.backBtn.Size = new System.Drawing.Size(44, 43);
