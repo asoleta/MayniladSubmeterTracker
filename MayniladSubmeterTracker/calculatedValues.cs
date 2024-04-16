@@ -27,6 +27,7 @@ namespace MayniladSubmeterTracker
             double cost = 0.0;
             double amtDue = 0.0;
             double billTotal = 0.0;
+            double checkBill = 0.0;
 
             //will order the table by id in descending order
             string queryBillTotal = $"SELECT * FROM submeterReading WHERE month = @Month AND year = @Year";
@@ -61,6 +62,7 @@ namespace MayniladSubmeterTracker
                             unit1waterTB.Text = waterUsage.ToString();
                             unit1CostTB.Text = cost.ToString("0.00") + "P";
                             unit1TotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -85,6 +87,7 @@ namespace MayniladSubmeterTracker
                             unit2aWaterTB.Text = waterUsage.ToString();
                             unit2aCostTB.Text = cost.ToString("0.00") + "P";
                             unit2aTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -109,6 +112,7 @@ namespace MayniladSubmeterTracker
                             unit2bWaterTB.Text = waterUsage.ToString();
                             unit2bCostTB.Text = cost.ToString("0.00") + "P";
                             unit2bTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -133,6 +137,7 @@ namespace MayniladSubmeterTracker
                             unit3aWaterTB.Text = waterUsage.ToString();
                             unit3aCostTB.Text = cost.ToString("0.00") + "P";
                             unit3aTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -157,6 +162,7 @@ namespace MayniladSubmeterTracker
                             unit3bWaterTB.Text = waterUsage.ToString();
                             unit3bCostTB.Text = cost.ToString("0.00") + "P";
                             unit3bTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -180,7 +186,8 @@ namespace MayniladSubmeterTracker
                             billTotal = Convert.ToDouble(reader["billTotal"]);
 
                             //Display the information in the textboxes
-                            totalBillTB.Text = billTotal.ToString("0.00") + "P";
+                            checkBillTB.Text = billTotal.ToString("0.00") + "P";
+                            totalBillTB.Text = checkBill.ToString("0.00" + "P");
                         }
                         else
                         {

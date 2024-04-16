@@ -69,6 +69,8 @@
             this.totalBillLbl = new System.Windows.Forms.Label();
             this.dateTB = new System.Windows.Forms.TextBox();
             this.totalBillTB = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkBillTB = new System.Windows.Forms.TextBox();
             this.unit1GB.SuspendLayout();
             this.unit2aGB.SuspendLayout();
             this.unit3aGB.SuspendLayout();
@@ -514,9 +516,9 @@
             this.totalBillLbl.Font = new System.Drawing.Font("Yu Gothic Medium", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalBillLbl.Location = new System.Drawing.Point(52, 546);
             this.totalBillLbl.Name = "totalBillLbl";
-            this.totalBillLbl.Size = new System.Drawing.Size(186, 31);
+            this.totalBillLbl.Size = new System.Drawing.Size(319, 31);
             this.totalBillLbl.TabIndex = 11;
-            this.totalBillLbl.Text = "Total Bill Cost:";
+            this.totalBillLbl.Text = "Calculated Total Bill Cost:";
             // 
             // dateTB
             // 
@@ -534,17 +536,39 @@
             this.totalBillTB.Cursor = System.Windows.Forms.Cursors.Default;
             this.totalBillTB.Enabled = false;
             this.totalBillTB.Font = new System.Drawing.Font("Yu Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalBillTB.Location = new System.Drawing.Point(244, 544);
+            this.totalBillTB.Location = new System.Drawing.Point(377, 544);
             this.totalBillTB.Name = "totalBillTB";
             this.totalBillTB.ReadOnly = true;
             this.totalBillTB.Size = new System.Drawing.Size(166, 33);
             this.totalBillTB.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Yu Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(53, 592);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(171, 25);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Inputted Bill Cost:";
+            // 
+            // checkBillTB
+            // 
+            this.checkBillTB.Enabled = false;
+            this.checkBillTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBillTB.Location = new System.Drawing.Point(230, 591);
+            this.checkBillTB.Name = "checkBillTB";
+            this.checkBillTB.ReadOnly = true;
+            this.checkBillTB.Size = new System.Drawing.Size(100, 26);
+            this.checkBillTB.TabIndex = 15;
             // 
             // calculatedValues
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1169, 686);
+            this.Controls.Add(this.checkBillTB);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.totalBillTB);
             this.Controls.Add(this.dateTB);
             this.Controls.Add(this.totalBillLbl);
@@ -618,5 +642,7 @@
         private System.Windows.Forms.Label totalBillLbl;
         private System.Windows.Forms.TextBox dateTB;
         private System.Windows.Forms.TextBox totalBillTB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox checkBillTB;
     }
 }
