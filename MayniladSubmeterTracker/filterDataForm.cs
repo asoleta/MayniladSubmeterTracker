@@ -58,36 +58,49 @@ namespace MayniladSubmeterTracker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //get the input from the textboxes and convert to required data type
-            int month = int.Parse(monthTB.Text);
-            int year = int.Parse(yearTB.Text);
-
-            //hide the current form
-            this.Close();
-
             try
             {
+                //get the input from the textboxes and convert to the required data type
+                int month = int.Parse(monthTB.Text);
+                int year = int.Parse(yearTB.Text);
+
                 //connect to SQL Database
-                SqlConnection conn = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True");
+                using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True"))
+                {
+                    conn.Open(); //open the connection
 
-                conn.Open(); //open the connection
+                    //add the values into the database
+                    SqlCommand cmd = new SqlCommand("INSERT INTO searchQueries VALUES (@month, @year)", conn);
+                    cmd.Parameters.AddWithValue("@month", month);
+                    cmd.Parameters.AddWithValue("@year", year);
+                    cmd.ExecuteNonQuery();
 
-                //add the values into the database
-                SqlCommand cmd = new SqlCommand("INSERT INTO searchQueries VALUES ('" + month + "','" + year + "')", conn);
-                cmd.ExecuteNonQuery();
+                    // Check if the month and year are current entries with data
+                    SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM submeterReading WHERE month = @month AND year = @year", conn);
+                    checkCmd.Parameters.AddWithValue("@month", month);
+                    checkCmd.Parameters.AddWithValue("@year", year);
+                    int existingRecords = (int)checkCmd.ExecuteScalar();
 
-                conn.Close(); //close the connection
+                    if (existingRecords > 0)
+                    {
+                        //create and show the other form
+                        filterDataResults filterDataResults = new filterDataResults();
+                        filterDataResults.Show();
+                    }
+                    else
+                    {
+                        // Show the error message without closing the program
+                        MessageBox.Show($"There are no existing records for {month}/{year}");
+                    }
+                }
             }
-
             catch (Exception ex)
             {
+                // Show the error message without closing the program
                 MessageBox.Show($"Error: {ex.Message}");
             }
-
-            //create and show the other form
-            filterDataResults filterDataResults = new filterDataResults();
-            filterDataResults.Show();
         }
+
 
         private void backBtn_Click(object sender, EventArgs e)
         {
