@@ -69,11 +69,15 @@
             this.totalBillLbl = new System.Windows.Forms.Label();
             this.dateTB = new System.Windows.Forms.TextBox();
             this.totalBillTB = new System.Windows.Forms.TextBox();
+            this.trashBtn = new System.Windows.Forms.PictureBox();
+            this.editBtn = new System.Windows.Forms.PictureBox();
             this.unit1GB.SuspendLayout();
             this.unit2aGB.SuspendLayout();
             this.unit3aGB.SuspendLayout();
             this.unit2bGB.SuspendLayout();
             this.unit3bGB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trashBtn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editBtn)).BeginInit();
             this.SuspendLayout();
             // 
             // closeBtn
@@ -512,7 +516,7 @@
             // 
             this.totalBillLbl.AutoSize = true;
             this.totalBillLbl.Font = new System.Drawing.Font("Yu Gothic Medium", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalBillLbl.Location = new System.Drawing.Point(52, 546);
+            this.totalBillLbl.Location = new System.Drawing.Point(52, 475);
             this.totalBillLbl.Name = "totalBillLbl";
             this.totalBillLbl.Size = new System.Drawing.Size(186, 31);
             this.totalBillLbl.TabIndex = 11;
@@ -534,17 +538,43 @@
             this.totalBillTB.Cursor = System.Windows.Forms.Cursors.Default;
             this.totalBillTB.Enabled = false;
             this.totalBillTB.Font = new System.Drawing.Font("Yu Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalBillTB.Location = new System.Drawing.Point(244, 544);
+            this.totalBillTB.Location = new System.Drawing.Point(244, 473);
             this.totalBillTB.Name = "totalBillTB";
             this.totalBillTB.ReadOnly = true;
             this.totalBillTB.Size = new System.Drawing.Size(166, 33);
             this.totalBillTB.TabIndex = 13;
+            // 
+            // trashBtn
+            // 
+            this.trashBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.trashBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.trash_icon;
+            this.trashBtn.Location = new System.Drawing.Point(32, 572);
+            this.trashBtn.Name = "trashBtn";
+            this.trashBtn.Size = new System.Drawing.Size(55, 55);
+            this.trashBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.trashBtn.TabIndex = 15;
+            this.trashBtn.TabStop = false;
+            this.trashBtn.Click += new System.EventHandler(this.trashBtn_Click);
+            // 
+            // editBtn
+            // 
+            this.editBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.editBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.editBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.pencil_icon;
+            this.editBtn.Location = new System.Drawing.Point(110, 572);
+            this.editBtn.Name = "editBtn";
+            this.editBtn.Size = new System.Drawing.Size(50, 50);
+            this.editBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.editBtn.TabIndex = 14;
+            this.editBtn.TabStop = false;
             // 
             // filterDataResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1169, 686);
+            this.Controls.Add(this.trashBtn);
+            this.Controls.Add(this.editBtn);
             this.Controls.Add(this.totalBillTB);
             this.Controls.Add(this.dateTB);
             this.Controls.Add(this.totalBillLbl);
@@ -570,6 +600,8 @@
             this.unit2bGB.PerformLayout();
             this.unit3bGB.ResumeLayout(false);
             this.unit3bGB.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trashBtn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editBtn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -618,5 +650,7 @@
         private System.Windows.Forms.Label totalBillLbl;
         private System.Windows.Forms.TextBox dateTB;
         private System.Windows.Forms.TextBox totalBillTB;
+        private System.Windows.Forms.PictureBox editBtn;
+        private System.Windows.Forms.PictureBox trashBtn;
     }
 }

@@ -779,6 +779,47 @@ namespace MayniladSubmeterTracker
                 //Submeter 3b end
             }
         }
+
+        //Deletes the record from the database, including the records in the subtables
+        private void trashBtn_Click(object sender, EventArgs e)
+        {
+            int month = 0;
+            int year = 0;
+
+            using (SqlConnection connection = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True"))
+            {
+                //open the connection
+                connection.Open();
+
+                // SQL query to retrieve month and year from searchQueries table
+                string sqlQuery = "SELECT TOP 1 [month], [year] FROM searchQueries ORDER BY id DESC";
+                string sqlDeleteQuery = "DELETE FROM submeterReadings WHERE month = @Month AND year = @Year";
+
+                // Delete from the submeterReadings
+                using (SqlCommand command = new SqlCommand(sqlDeleteQuery, connection))
+                {
+                    // Add parameters to the SqlCommand to prevent SQL injection
+                    command.Parameters.AddWithValue("@Month", month);
+                    command.Parameters.AddWithValue("@Year", year);
+
+                    // Execute the delete command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Rows deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows deleted.");
+                    }
+                }
+
+                connection.Close(); //close the connection
+
+                }
+            }
+        }
     }
 }
 

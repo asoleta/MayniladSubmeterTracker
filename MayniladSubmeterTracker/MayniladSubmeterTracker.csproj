@@ -85,6 +85,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Submeter.cs" />
+    <None Include="Resources\trash_icon.png" />
+    <None Include="Resources\pencil_icon.png" />
     <None Include="Resources\back-arrow 1.png" />
     <None Include="Resources\Homepage.png" />
     <Content Include="Resources\IyaSandraLogo.png" />
