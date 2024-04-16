@@ -90,6 +90,7 @@
     <None Include="Resources\pencil_icon.png" />
     <None Include="Resources\back-arrow 1.png" />
     <None Include="Resources\Homepage.png" />
+    <None Include="Resources\checkmark.png" />
     <Content Include="Resources\IyaSandraLogo.png" />
     <None Include="Resources\backBtn.png" />
     <EmbeddedResource Include="filterDataResults.resx">

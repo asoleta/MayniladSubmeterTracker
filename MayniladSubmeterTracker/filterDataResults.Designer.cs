@@ -69,6 +69,7 @@
             this.totalBillLbl = new System.Windows.Forms.Label();
             this.dateTB = new System.Windows.Forms.TextBox();
             this.totalBillTB = new System.Windows.Forms.TextBox();
+            this.checkboxBtn = new System.Windows.Forms.PictureBox();
             this.trashBtn = new System.Windows.Forms.PictureBox();
             this.editBtn = new System.Windows.Forms.PictureBox();
             this.unit1GB.SuspendLayout();
@@ -76,6 +77,7 @@
             this.unit3aGB.SuspendLayout();
             this.unit2bGB.SuspendLayout();
             this.unit3bGB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkboxBtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trashBtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.editBtn)).BeginInit();
             this.SuspendLayout();
@@ -544,6 +546,20 @@
             this.totalBillTB.Size = new System.Drawing.Size(166, 33);
             this.totalBillTB.TabIndex = 13;
             // 
+            // checkboxBtn
+            // 
+            this.checkboxBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkboxBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkboxBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.checkmark;
+            this.checkboxBtn.Location = new System.Drawing.Point(93, 572);
+            this.checkboxBtn.Name = "checkboxBtn";
+            this.checkboxBtn.Size = new System.Drawing.Size(100, 50);
+            this.checkboxBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.checkboxBtn.TabIndex = 16;
+            this.checkboxBtn.TabStop = false;
+            this.checkboxBtn.Visible = false;
+            this.checkboxBtn.Click += new System.EventHandler(this.checkboxBtn_Click);
+            // 
             // trashBtn
             // 
             this.trashBtn.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -567,12 +583,14 @@
             this.editBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.editBtn.TabIndex = 14;
             this.editBtn.TabStop = false;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // filterDataResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1169, 686);
+            this.Controls.Add(this.checkboxBtn);
             this.Controls.Add(this.trashBtn);
             this.Controls.Add(this.editBtn);
             this.Controls.Add(this.totalBillTB);
@@ -600,6 +618,7 @@
             this.unit2bGB.PerformLayout();
             this.unit3bGB.ResumeLayout(false);
             this.unit3bGB.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkboxBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trashBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.editBtn)).EndInit();
             this.ResumeLayout(false);
@@ -652,5 +671,6 @@
         private System.Windows.Forms.TextBox totalBillTB;
         private System.Windows.Forms.PictureBox editBtn;
         private System.Windows.Forms.PictureBox trashBtn;
+        private System.Windows.Forms.PictureBox checkboxBtn;
     }
 }

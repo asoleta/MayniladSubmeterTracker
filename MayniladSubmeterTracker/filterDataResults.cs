@@ -960,6 +960,106 @@ namespace MayniladSubmeterTracker
                 MessageBox.Show("Deletion canceled.", "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        // Allows edits to the fields
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+            // Changes the properties of the fields to be editable
+            makeEditable();
+
+            // Hide the edit button and whos the checkbox button
+            editBtn.Visible = false;
+            checkboxBtn.Visible = true;
+        }
+
+        // Saves changes to the database and recalculates the values
+        private void checkboxBtn_Click(object sender, EventArgs e)
+        {
+            // Hide the checkbox button and show the edit button again
+            checkboxBtn.Visible = false;
+            editBtn.Visible = true;
+
+            // Disable edits
+            disableEdits();
+        }
+
+        // Changes the properties of the fields to be editable
+        private void makeEditable()
+        {
+            unit1waterTB.Enabled = true;
+            unit1waterTB.ReadOnly = false;
+            unit1CostTB.Enabled = true;
+            unit1CostTB.ReadOnly = false;
+            unit1TotalTB.Enabled = true;
+            unit1TotalTB.ReadOnly = false;
+
+            unit2aWaterTB.Enabled = true;
+            unit2aWaterTB.ReadOnly = false;
+            unit2aCostTB.Enabled = true;
+            unit2aCostTB.ReadOnly = false;
+            unit2aTotalTB.Enabled = true;
+            unit2aTotalTB.ReadOnly = false;
+
+            unit2bWaterTB.Enabled = true;
+            unit2bWaterTB.ReadOnly = false;
+            unit2bCostTB.Enabled = true;
+            unit2bCostTB.ReadOnly = false;
+            unit2bTotalTB.Enabled = true;
+            unit2bTotalTB.ReadOnly = false;
+
+            unit3aWaterTB.Enabled = true;
+            unit3aWaterTB.ReadOnly = false;
+            unit3aCostTB.Enabled = true;
+            unit3aCostTB.ReadOnly = false;
+            unit3aTotalTB.Enabled = true;
+            unit3aTotalTB.ReadOnly = false;
+
+            unit3bWaterTB.Enabled = true;
+            unit3bWaterTB.ReadOnly = false;
+            unit3bCostTB.Enabled = true;
+            unit3bCostTB.ReadOnly = false;
+            unit3bTotalTB.Enabled = true;
+            unit3bTotalTB.ReadOnly = false;
+        }
+
+        // Changes the properties of the fields to be not editable
+        private void disableEdits()
+        {
+            unit1waterTB.Enabled = false;
+            unit1waterTB.ReadOnly = true;
+            unit1CostTB.Enabled = false;
+            unit1CostTB.ReadOnly = true;
+            unit1TotalTB.Enabled = false;
+            unit1TotalTB.ReadOnly = true;
+
+            unit2aWaterTB.Enabled = false;
+            unit2aWaterTB.ReadOnly = true;
+            unit2aCostTB.Enabled = false;
+            unit2aCostTB.ReadOnly = true;
+            unit2aTotalTB.Enabled = false;
+            unit2aTotalTB.ReadOnly = true;
+
+            unit2bWaterTB.Enabled = false;
+            unit2bWaterTB.ReadOnly = true;
+            unit2bCostTB.Enabled = false;
+            unit2bCostTB.ReadOnly = true;
+            unit2bTotalTB.Enabled = false;
+            unit2bTotalTB.ReadOnly = true;
+
+            unit3aWaterTB.Enabled = false;
+            unit3aWaterTB.ReadOnly = true;
+            unit3aCostTB.Enabled = false;
+            unit3aCostTB.ReadOnly = true;
+            unit3aTotalTB.Enabled = false;
+            unit3aTotalTB.ReadOnly = true;
+
+            unit3bWaterTB.Enabled = false;
+            unit3bWaterTB.ReadOnly = true;
+            unit3bCostTB.Enabled = false;
+            unit3bCostTB.ReadOnly = true;
+            unit3bTotalTB.Enabled = false;
+            unit3bTotalTB.ReadOnly = true;
+        }
     }
 }
 
