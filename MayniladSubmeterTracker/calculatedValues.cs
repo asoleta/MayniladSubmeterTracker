@@ -187,7 +187,7 @@ namespace MayniladSubmeterTracker
 
                             //Display the information in the textboxes
                             checkBillTB.Text = billTotal.ToString("0.00") + "P";
-                            totalBillTB.Text = checkBill.ToString("0.00" + "P");
+                            totalBillTB.Text = checkBill.ToString("0.00") + "P";
                         }
                         else
                         {
