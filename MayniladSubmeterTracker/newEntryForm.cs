@@ -237,15 +237,15 @@ namespace MayniladSubmeterTracker
                     "\n" + sub3aCostPer.ToString() + "\n" + sub3bCostPer.ToString());
 
                 //Create submeter objects to store the information
-                Submeter submeter1a = new Submeter(month, year, sub1aDiff, Math.Round(sub1aCostPer, 2), Math.Round(sub1aBill, 2));
+                Submeter submeter1a = new Submeter(month, year, sub1aDiff, sub1aCostPer, Math.Round(sub1aBill, 2));
 
-                Submeter submeter2a = new Submeter(month, year, sub2aDiff, Math.Round(sub2aCostPer, 2), Math.Round(sub2aBill, 2));
+                Submeter submeter2a = new Submeter(month, year, sub2aDiff, sub2aCostPer, Math.Round(sub2aBill, 2));
 
-                Submeter submeter2b = new Submeter(month, year, sub2bDiff, Math.Round(sub2bCostPer, 2), Math.Round(sub2bBill, 2));
+                Submeter submeter2b = new Submeter(month, year, sub2bDiff, sub2bCostPer, Math.Round(sub2bBill, 2));
 
-                Submeter submeter3a = new Submeter(month, year, sub3aDiff, Math.Round(sub3aCostPer, 2), Math.Round(sub3aBill, 2));
+                Submeter submeter3a = new Submeter(month, year, sub3aDiff, sub3aCostPer, Math.Round(sub3aBill, 2));
 
-                Submeter submeter3b = new Submeter(month, year, sub3bDiff, Math.Round(sub3bCostPer, 2), Math.Round(sub3bBill, 2));
+                Submeter submeter3b = new Submeter(month, year, sub3bDiff, sub3bCostPer, Math.Round(sub3bBill, 2));
 
                 Submeter[] submeters = { submeter1a, submeter2a, submeter2b, submeter3a, submeter3b };
 
