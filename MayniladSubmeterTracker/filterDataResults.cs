@@ -794,9 +794,134 @@ namespace MayniladSubmeterTracker
                 // SQL query to retrieve month and year from searchQueries table
                 string sqlQuery = "SELECT TOP 1 [month], [year] FROM searchQueries ORDER BY id DESC";
                 string sqlDeleteQuery = "DELETE FROM submeterReadings WHERE month = @Month AND year = @Year";
+                string sql1aDeleteQuery = "DELETE FROM submeter1A WHERE month = @Month AND year = @Year";
+                string sql2aDeleteQuery = "DELETE FROM submeter2A WHERE month = @Month AND year = @Year";
+                string sql2bDeleteQuery = "DELETE FROM submeter2B WHERE month = @Month AND year = @Year";
+                string sql3aDeleteQuery = "DELETE FROM submeter3A WHERE month = @Month AND year = @Year";
+                string sql3bDeleteQuery = "DELETE FROM submeter3B WHERE month = @Month AND year = @Year";
+
+                // Get the current month and year
+                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                {
+                    // Gets the desired month and year from the searchQueries table
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Check if there are rows returned
+                        if (reader.Read())
+                        {
+                            // Assign month and year values from the query result
+                            month = Convert.ToInt32(reader["month"]);
+                            year = Convert.ToInt32(reader["year"]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found in searchQuery table.");
+                        }
+                    }
+                }
 
                 // Delete from the submeterReadings
                 using (SqlCommand command = new SqlCommand(sqlDeleteQuery, connection))
+                {
+                    // Add parameters to the SqlCommand to prevent SQL injection
+                    command.Parameters.AddWithValue("@Month", month);
+                    command.Parameters.AddWithValue("@Year", year);
+
+                    // Execute the delete command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Rows deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows deleted.");
+                    }
+                }
+
+                // Delete from the submeter1a
+                using (SqlCommand command = new SqlCommand(sql1aDeleteQuery, connection))
+                {
+                    // Add parameters to the SqlCommand to prevent SQL injection
+                    command.Parameters.AddWithValue("@Month", month);
+                    command.Parameters.AddWithValue("@Year", year);
+
+                    // Execute the delete command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Rows deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows deleted.");
+                    }
+                }
+
+                // Delete from the submeter2a
+                using (SqlCommand command = new SqlCommand(sql2aDeleteQuery, connection))
+                {
+                    // Add parameters to the SqlCommand to prevent SQL injection
+                    command.Parameters.AddWithValue("@Month", month);
+                    command.Parameters.AddWithValue("@Year", year);
+
+                    // Execute the delete command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Rows deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows deleted.");
+                    }
+                }
+
+                // Delete from the submeter2b
+                using (SqlCommand command = new SqlCommand(sql2bDeleteQuery, connection))
+                {
+                    // Add parameters to the SqlCommand to prevent SQL injection
+                    command.Parameters.AddWithValue("@Month", month);
+                    command.Parameters.AddWithValue("@Year", year);
+
+                    // Execute the delete command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Rows deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows deleted.");
+                    }
+                }
+
+                // Delete from the submeter3a
+                using (SqlCommand command = new SqlCommand(sql3aDeleteQuery, connection))
+                {
+                    // Add parameters to the SqlCommand to prevent SQL injection
+                    command.Parameters.AddWithValue("@Month", month);
+                    command.Parameters.AddWithValue("@Year", year);
+
+                    // Execute the delete command
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Rows deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows deleted.");
+                    }
+                }
+
+                // Delete from the submeter3b
+                using (SqlCommand command = new SqlCommand(sql3bDeleteQuery, connection))
                 {
                     // Add parameters to the SqlCommand to prevent SQL injection
                     command.Parameters.AddWithValue("@Month", month);
