@@ -106,12 +106,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(154)))), ((int)(((byte)(164)))));
+            this.BackgroundImage = global::MayniladSubmeterTracker.Properties.Resources.Homepage;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 607);
             this.Controls.Add(this.graphBtn);
             this.Controls.Add(this.viewDataBtn);
             this.Controls.Add(this.entryBtn);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.mayniladLbl);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "homepage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
