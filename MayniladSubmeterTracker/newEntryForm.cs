@@ -56,7 +56,6 @@ namespace MayniladSubmeterTracker
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
-
             //get the input from the textboxes and convert to required data type
             int month = datePicker.Value.Month;
             int year = datePicker.Value.Year;
@@ -69,16 +68,28 @@ namespace MayniladSubmeterTracker
             double totalBillValue = double.Parse(billTotalTB.Text);
             int idValue = 0;
 
-            //hide the current form
-            this.Close();
-
-
             try
             {
                 //connect to SQL Database
                 SqlConnection conn = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True");
 
                 conn.Open(); //open the connection
+
+                // Check if the data already exists for the selected month and year
+                string sqlCheckExisting = "SELECT COUNT(*) FROM submeterReading WHERE month = @Month AND year = @Year";
+                using (SqlCommand checkExistingCmd = new SqlCommand(sqlCheckExisting, conn))
+                {
+                    checkExistingCmd.Parameters.AddWithValue("@Month", month);
+                    checkExistingCmd.Parameters.AddWithValue("@Year", year);
+
+                    int existingCount = (int)checkExistingCmd.ExecuteScalar();
+                    if (existingCount > 0)
+                    {
+                        // Data already exists for the selected month and year
+                        MessageBox.Show("Data for the selected month and year already exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Stop further execution
+                    }
+                }
 
                 //add the values into the database
                 SqlCommand cmd = new SqlCommand("INSERT INTO submeterReading VALUES ('" + month + "','" + year + "','" + submeter1aValue + "','" + submeter2aValue + "'" +
@@ -115,24 +126,24 @@ namespace MayniladSubmeterTracker
                     }
 
                     conn.Close(); //close the connection
-
                 }
 
                 //calculate the difference between the current and previous month usage
                 //then, populate the dataset with the correct information
                 populateDataset(CalculateUsage(conn, totalBillValue, month, year, idValue, submeter1aValue, submeter2aValue, submeter2bValue, submeter3aValue, submeter3bValue), conn);
-            }
 
+                //create and show the other form
+                this.Close();
+                calculatedValues calculatedValues = new calculatedValues();
+                calculatedValues.Show();
+
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
-
-            //create and show the other form
-            calculatedValues calculatedValues = new calculatedValues();
-            calculatedValues.Show();
-
         }
+
 
         private Submeter[] CalculateUsage(SqlConnection conn, double totalBillValue, int month, int year, int id, int sub1, int sub2a, int sub2b, int sub3a, int sub3b)
         {
