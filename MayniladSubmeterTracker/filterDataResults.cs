@@ -368,6 +368,8 @@ namespace MayniladSubmeterTracker
                             // Add table content
                             table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Approximate Cost per Cubic Meter: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(cost.ToString(), BaseColor.WHITE, 5f));
                             table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
 
@@ -463,6 +465,8 @@ namespace MayniladSubmeterTracker
                             // Add table content
                             table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Approximate Cost per Cubic Meter: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(cost.ToString(), BaseColor.WHITE, 5f));
                             table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
 
@@ -558,6 +562,8 @@ namespace MayniladSubmeterTracker
                             // Add table content
                             table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Approximate Cost per Cubic Meter: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(cost.ToString(), BaseColor.WHITE, 5f));
                             table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
 
@@ -653,6 +659,8 @@ namespace MayniladSubmeterTracker
                             // Add table content
                             table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Approximate Cost per Cubic Meter: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(cost.ToString(), BaseColor.WHITE, 5f));
                             table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
 
@@ -748,6 +756,8 @@ namespace MayniladSubmeterTracker
                             // Add table content
                             table.AddCell(GetCell("Total Water Consumption: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(waterUsage.ToString(), BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell("Approximate Cost per Cubic Meter: ", BaseColor.WHITE, 5f));
+                            table.AddCell(GetCell(cost.ToString(), BaseColor.WHITE, 5f));
                             table.AddCell(GetCell("Amount due: ", BaseColor.WHITE, 5f));
                             table.AddCell(GetCell(amtDue.ToString("0.00") + "P", new BaseColor(255, 204, 204), 5f)); // Light red color
 
