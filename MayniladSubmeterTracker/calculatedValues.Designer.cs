@@ -566,6 +566,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1169, 686);
             this.Controls.Add(this.checkBillTB);
             this.Controls.Add(this.label2);
@@ -580,6 +581,7 @@
             this.Controls.Add(this.unit1GB);
             this.Controls.Add(this.dateLbl);
             this.Controls.Add(this.closeBtn);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "calculatedValues";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
