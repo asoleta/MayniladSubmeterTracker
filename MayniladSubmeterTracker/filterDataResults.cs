@@ -1183,38 +1183,38 @@ namespace MayniladSubmeterTracker
         // Changes the properties of the fields to be editable
         private void makeEditable()
         {
-            unit1waterTB.Enabled = true;
-            unit1waterTB.ReadOnly = false;
-            unit1CostTB.Enabled = true;
-            unit1CostTB.ReadOnly = false;
+            //unit1waterTB.Enabled = true;
+            //unit1waterTB.ReadOnly = false;
+            //unit1CostTB.Enabled = true;
+            //unit1CostTB.ReadOnly = false;
             unit1TotalTB.Enabled = true;
             unit1TotalTB.ReadOnly = false;
 
-            unit2aWaterTB.Enabled = true;
-            unit2aWaterTB.ReadOnly = false;
-            unit2aCostTB.Enabled = true;
-            unit2aCostTB.ReadOnly = false;
+            //unit2aWaterTB.Enabled = true;
+            //unit2aWaterTB.ReadOnly = false;
+            //unit2aCostTB.Enabled = true;
+            //unit2aCostTB.ReadOnly = false;
             unit2aTotalTB.Enabled = true;
             unit2aTotalTB.ReadOnly = false;
 
-            unit2bWaterTB.Enabled = true;
-            unit2bWaterTB.ReadOnly = false;
-            unit2bCostTB.Enabled = true;
-            unit2bCostTB.ReadOnly = false;
+            //unit2bWaterTB.Enabled = true;
+            //unit2bWaterTB.ReadOnly = false;
+            //unit2bCostTB.Enabled = true;
+            //unit2bCostTB.ReadOnly = false;
             unit2bTotalTB.Enabled = true;
             unit2bTotalTB.ReadOnly = false;
 
-            unit3aWaterTB.Enabled = true;
-            unit3aWaterTB.ReadOnly = false;
-            unit3aCostTB.Enabled = true;
-            unit3aCostTB.ReadOnly = false;
+            //unit3aWaterTB.Enabled = true;
+            //unit3aWaterTB.ReadOnly = false;
+            //unit3aCostTB.Enabled = true;
+            //unit3aCostTB.ReadOnly = false;
             unit3aTotalTB.Enabled = true;
             unit3aTotalTB.ReadOnly = false;
 
-            unit3bWaterTB.Enabled = true;
-            unit3bWaterTB.ReadOnly = false;
-            unit3bCostTB.Enabled = true;
-            unit3bCostTB.ReadOnly = false;
+            //unit3bWaterTB.Enabled = true;
+            //unit3bWaterTB.ReadOnly = false;
+            //unit3bCostTB.Enabled = true;
+            //unit3bCostTB.ReadOnly = false;
             unit3bTotalTB.Enabled = true;
             unit3bTotalTB.ReadOnly = false;
         }
