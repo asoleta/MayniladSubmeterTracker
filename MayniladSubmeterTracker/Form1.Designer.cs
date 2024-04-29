@@ -100,6 +100,7 @@
             this.graphBtn.TabIndex = 4;
             this.graphBtn.Text = "Generate Graph";
             this.graphBtn.UseVisualStyleBackColor = false;
+            this.graphBtn.Click += new System.EventHandler(this.graphBtn_Click);
             // 
             // homepage
             // 

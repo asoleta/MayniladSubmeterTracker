@@ -83,5 +83,10 @@ namespace MayniladSubmeterTracker
             filterDataForm filterDataForm = new filterDataForm();
             filterDataForm.Show();
         }
+
+        private void graphBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not yet available. Coming soon");
+        }
     }
 }
