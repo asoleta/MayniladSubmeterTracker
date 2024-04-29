@@ -27,6 +27,7 @@ namespace MayniladSubmeterTracker
             double cost = 0.0;
             double amtDue = 0.0;
             double billTotal = 0.0;
+            double checkBill = 0.0;
 
             using (SqlConnection connection = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True"))
             {
@@ -87,6 +88,7 @@ namespace MayniladSubmeterTracker
                             unit1waterTB.Text = waterUsage.ToString();
                             unit1CostTB.Text = cost.ToString("0.00") + "P";
                             unit1TotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -115,6 +117,7 @@ namespace MayniladSubmeterTracker
                             unit2aWaterTB.Text = waterUsage.ToString();
                             unit2aCostTB.Text = cost.ToString("0.00") + "P";
                             unit2aTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -143,6 +146,7 @@ namespace MayniladSubmeterTracker
                             unit2bWaterTB.Text = waterUsage.ToString();
                             unit2bCostTB.Text = cost.ToString("0.00") + "P";
                             unit2bTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -171,6 +175,7 @@ namespace MayniladSubmeterTracker
                             unit3aWaterTB.Text = waterUsage.ToString();
                             unit3aCostTB.Text = cost.ToString("0.00") + "P";
                             unit3aTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -200,6 +205,7 @@ namespace MayniladSubmeterTracker
                             unit3bWaterTB.Text = waterUsage.ToString();
                             unit3bCostTB.Text = cost.ToString("0.00") + "P";
                             unit3bTotalTB.Text = amtDue.ToString("0.00") + "P";
+                            checkBill += amtDue;
                         }
                         else
                         {
@@ -223,7 +229,8 @@ namespace MayniladSubmeterTracker
                             billTotal = Convert.ToDouble(reader["billTotal"]);
 
                             //Display the information in the textboxes
-                            totalBillTB.Text = billTotal.ToString("0.00") + "P";
+                            checkBillTB.Text = billTotal.ToString("0.00") + "P";
+                            totalBillTB.Text = checkBill.ToString("0.00") + "P";
                         }
                         else
                         {
@@ -967,7 +974,7 @@ namespace MayniladSubmeterTracker
             // Changes the properties of the fields to be editable
             makeEditable();
 
-            // Hide the edit button and whos the checkbox button
+            // Hide the edit button and shows the checkbox button
             editBtn.Visible = false;
             checkboxBtn.Visible = true;
         }
@@ -981,6 +988,196 @@ namespace MayniladSubmeterTracker
 
             // Disable edits
             disableEdits();
+
+            // Updates the database
+            //get the input from the textboxes and convert to required data type
+            int monthSearch = 0; //uses month from most recent search
+            int yearSearch = 0; //uses year from most recent search
+
+            // Declare variables to hold parsed values
+            double submeter1aTotal = 0;
+            double submeter2aTotal = 0;
+            double submeter2bTotal = 0;
+            double submeter3aTotal = 0;
+            double submeter3bTotal = 0;
+
+
+            // Remove the "P" character from the text before parsing
+            string unit1TotalText = unit1TotalTB.Text.Replace("P", "");
+            string unit2aTotalText = unit2aTotalTB.Text.Replace("P", "");
+            string unit2bTotalText = unit2bTotalTB.Text.Replace("P", "");
+            string unit3aTotalText = unit3aTotalTB.Text.Replace("P", "");
+            string unit3bTotalText = unit3bTotalTB.Text.Replace("P", "");
+
+            // Attempt to parse each textbox value
+            if (double.TryParse(unit1TotalText, out submeter1aTotal) &&
+                double.TryParse(unit2aTotalText, out submeter2aTotal) &&
+                double.TryParse(unit2bTotalText, out submeter2bTotal) &&
+                double.TryParse(unit3aTotalText, out submeter3aTotal) &&
+                double.TryParse(unit3bTotalText, out submeter3bTotal))
+            {
+                // Parsing successful, calculate the updated bill cost
+                double updatedBillCost = submeter1aTotal + submeter2aTotal + submeter2bTotal + submeter3aTotal + submeter3bTotal;
+            }
+
+            try
+            {
+                //connect to SQL Database
+                SqlConnection conn = new SqlConnection("Data Source=LAPTOP-EF4ATSUG\\SQLEXPRESS01;Initial Catalog=Maynilad;Integrated Security=True;TrustServerCertificate=True");
+
+                conn.Open(); //open the connection
+
+                // SQL query to retrieve month and year from searchQueries table
+                string sqlQuery = "SELECT TOP 1 [month], [year] FROM searchQueries ORDER BY id DESC";
+                string queryBillTotal = $"SELECT * FROM submeterReading WHERE month = @Month AND year = @Year";
+                string querySub1a = "UPDATE submeter1A SET amtDue = @AmtDue WHERE month = @Month AND year = @Year";
+                string querySub2a = "UPDATE submeter2A SET amtDue = @AmtDue WHERE month = @Month AND year = @Year";
+                string querySub2b = "UPDATE submeter2B SET amtDue = @AmtDue WHERE month = @Month AND year = @Year";
+                string querySub3a = "UPDATE submeter3A SET amtDue = @AmtDue WHERE month = @Month AND year = @Year";
+                string querySub3b = "UPDATE submeter3B SET amtDue = @AmtDue WHERE month = @Month AND year = @Year";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, conn))
+                {
+                    // Gets the desired month and year from the searchQueries table
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Check if there are rows returned
+                        if (reader.Read())
+                        {
+                            // Assign month and year values from the query result
+                            monthSearch = Convert.ToInt32(reader["month"]);
+                            yearSearch = Convert.ToInt32(reader["year"]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found in searchQuery table.");
+                        }
+                    }
+                }
+
+                //Submeter 1a
+                using (SqlCommand updateCmd = new SqlCommand(querySub1a, conn))
+                {
+                    // Provide parameter values for the query
+                    updateCmd.Parameters.AddWithValue("@AmtDue", submeter1aTotal);
+                    updateCmd.Parameters.AddWithValue("@Month", monthSearch);
+                    updateCmd.Parameters.AddWithValue("@Year", yearSearch);
+
+                    // Execute the update command
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                    // Check if any rows were affected by the update
+                    if (rowsAffected > 0)
+                    {
+                        //MessageBox.Show("Submeter 1a total updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No rows were updated. Verify the month and year values.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                // Submeter1a end
+
+                //Submeter 2a
+                using (SqlCommand updateCmd = new SqlCommand(querySub2a, conn))
+                {
+                    // Provide parameter values for the query
+                    updateCmd.Parameters.AddWithValue("@AmtDue", submeter2aTotal);
+                    updateCmd.Parameters.AddWithValue("@Month", monthSearch);
+                    updateCmd.Parameters.AddWithValue("@Year", yearSearch);
+
+                    // Execute the update command
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                    // Check if any rows were affected by the update
+                    if (rowsAffected > 0)
+                    {
+                        //MessageBox.Show("Submeter 1a total updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No rows were updated. Verify the month and year values.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                // Submeter2a end
+
+                //Submeter 2b
+                using (SqlCommand updateCmd = new SqlCommand(querySub2b, conn))
+                {
+                    // Provide parameter values for the query
+                    updateCmd.Parameters.AddWithValue("@AmtDue", submeter2bTotal);
+                    updateCmd.Parameters.AddWithValue("@Month", monthSearch);
+                    updateCmd.Parameters.AddWithValue("@Year", yearSearch);
+
+                    // Execute the update command
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                    // Check if any rows were affected by the update
+                    if (rowsAffected > 0)
+                    {
+                        //MessageBox.Show("Submeter 1a total updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No rows were updated. Verify the month and year values.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                // Submeter2b end
+
+                //Submeter 3a
+                using (SqlCommand updateCmd = new SqlCommand(querySub3a, conn))
+                {
+                    // Provide parameter values for the query
+                    updateCmd.Parameters.AddWithValue("@AmtDue", submeter3aTotal);
+                    updateCmd.Parameters.AddWithValue("@Month", monthSearch);
+                    updateCmd.Parameters.AddWithValue("@Year", yearSearch);
+
+                    // Execute the update command
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                    // Check if any rows were affected by the update
+                    if (rowsAffected > 0)
+                    {
+                        //MessageBox.Show("Submeter 1a total updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No rows were updated. Verify the month and year values.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                // Submeter3a end
+
+                //Submeter 3b
+                using (SqlCommand updateCmd = new SqlCommand(querySub3b, conn))
+                {
+                    // Provide parameter values for the query
+                    updateCmd.Parameters.AddWithValue("@AmtDue", submeter3bTotal);
+                    updateCmd.Parameters.AddWithValue("@Month", monthSearch);
+                    updateCmd.Parameters.AddWithValue("@Year", yearSearch);
+
+                    // Execute the update command
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                    // Check if any rows were affected by the update
+                    if (rowsAffected > 0)
+                    {
+                        //MessageBox.Show("Submeter 1a total updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No rows were updated. Verify the month and year values.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                // Submeter3b end
+
+                conn.Close(); //close the connection
+                MessageBox.Show("Edits have successfully been saved.");
+            }
+            
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         // Changes the properties of the fields to be editable
@@ -1060,6 +1257,69 @@ namespace MayniladSubmeterTracker
             unit3bTotalTB.Enabled = false;
             unit3bTotalTB.ReadOnly = true;
         }
+
+        // Calculate the change in total values in real time
+        private void calculateChanges()
+        {
+            // Declare variables to hold parsed values
+            double submeter1aTotal;
+            double submeter2aTotal;
+            double submeter2bTotal;
+            double submeter3aTotal;
+            double submeter3bTotal;
+
+            // Remove the "P" character from the text before parsing
+            string unit1TotalText = unit1TotalTB.Text.Replace("P", "");
+            string unit2aTotalText = unit2aTotalTB.Text.Replace("P", "");
+            string unit2bTotalText = unit2bTotalTB.Text.Replace("P", "");
+            string unit3aTotalText = unit3aTotalTB.Text.Replace("P", "");
+            string unit3bTotalText = unit3bTotalTB.Text.Replace("P", "");
+
+            // Attempt to parse each textbox value
+            if (double.TryParse(unit1TotalText, out submeter1aTotal) &&
+                double.TryParse(unit2aTotalText, out submeter2aTotal) &&
+                double.TryParse(unit2bTotalText, out submeter2bTotal) &&
+                double.TryParse(unit3aTotalText, out submeter3aTotal) &&
+                double.TryParse(unit3bTotalText, out submeter3bTotal))
+            {
+                // Parsing successful, calculate the updated bill cost
+                double updatedBillCost = submeter1aTotal + submeter2aTotal + submeter2bTotal + submeter3aTotal + submeter3bTotal;
+                totalBillTB.Text = updatedBillCost.ToString("0.00") + "P";
+            }
+            else
+            {
+                // Parsing failed for at least one of the values
+                // Handle the error or notify the user
+                totalBillTB.Text = "Invalid input";
+            }
+        }
+
+        // Updates the total bill cost when the value in the textbox is changed
+        private void unit1TotalTB_TextChanged(object sender, EventArgs e)
+        {
+            calculateChanges();
+        }
+
+        private void unit2aTotalTB_TextChanged(object sender, EventArgs e)
+        {
+            calculateChanges();
+        }
+
+        private void unit2bTotalTB_TextChanged(object sender, EventArgs e)
+        {
+            calculateChanges();
+        }
+
+        private void unit3aTotalTB_TextChanged(object sender, EventArgs e)
+        {
+            calculateChanges();
+        }
+
+        private void unit3bTotalTB_TextChanged(object sender, EventArgs e)
+        {
+            calculateChanges();
+        }
+        // End of the update group
     }
 }
 

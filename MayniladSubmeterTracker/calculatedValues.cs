@@ -226,7 +226,7 @@ namespace MayniladSubmeterTracker
                 connection.Open();
 
                 // SQL query to retrieve month and year from searchQueries table
-                string sqlQuery = "SELECT TOP 1 [month], [year] FROM searchQueries ORDER BY id DESC";
+                string sqlQuery = "SELECT TOP 1 [month], [year] FROM submeterReading ORDER BY id DESC";
                 string queryBillTotal = $"SELECT * FROM submeterReading WHERE month = @Month AND year = @Year";
                 string querySub1a = "SELECT * FROM submeter1A WHERE month = @Month AND year = @Year;";
                 string querySub2a = "SELECT * FROM submeter2A WHERE month = @Month AND year = @Year;";

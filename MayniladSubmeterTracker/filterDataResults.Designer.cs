@@ -72,6 +72,8 @@
             this.checkboxBtn = new System.Windows.Forms.PictureBox();
             this.trashBtn = new System.Windows.Forms.PictureBox();
             this.editBtn = new System.Windows.Forms.PictureBox();
+            this.checkBillTB = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.unit1GB.SuspendLayout();
             this.unit2aGB.SuspendLayout();
             this.unit3aGB.SuspendLayout();
@@ -131,6 +133,7 @@
             this.unit1TotalTB.ReadOnly = true;
             this.unit1TotalTB.Size = new System.Drawing.Size(100, 33);
             this.unit1TotalTB.TabIndex = 5;
+            this.unit1TotalTB.TextChanged += new System.EventHandler(this.unit1TotalTB_TextChanged);
             // 
             // unit1CostTB
             // 
@@ -190,7 +193,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Yu Gothic Medium", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(59)))), ((int)(((byte)(80)))));
-            this.button1.Location = new System.Drawing.Point(942, 546);
+            this.button1.Location = new System.Drawing.Point(942, 572);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(179, 71);
             this.button1.TabIndex = 7;
@@ -224,6 +227,7 @@
             this.unit2aTotalTB.ReadOnly = true;
             this.unit2aTotalTB.Size = new System.Drawing.Size(100, 33);
             this.unit2aTotalTB.TabIndex = 5;
+            this.unit2aTotalTB.TextChanged += new System.EventHandler(this.unit2aTotalTB_TextChanged);
             // 
             // unit2aCostTB
             // 
@@ -303,6 +307,7 @@
             this.unit3aTotalTB.ReadOnly = true;
             this.unit3aTotalTB.Size = new System.Drawing.Size(100, 33);
             this.unit3aTotalTB.TabIndex = 5;
+            this.unit3aTotalTB.TextChanged += new System.EventHandler(this.unit3aTotalTB_TextChanged);
             // 
             // unit3aCostTB
             // 
@@ -382,6 +387,7 @@
             this.unit2bTotalTB.ReadOnly = true;
             this.unit2bTotalTB.Size = new System.Drawing.Size(100, 33);
             this.unit2bTotalTB.TabIndex = 5;
+            this.unit2bTotalTB.TextChanged += new System.EventHandler(this.unit2bTotalTB_TextChanged);
             // 
             // unit2bCostTB
             // 
@@ -461,6 +467,7 @@
             this.unit3bTotalTB.ReadOnly = true;
             this.unit3bTotalTB.Size = new System.Drawing.Size(100, 33);
             this.unit3bTotalTB.TabIndex = 5;
+            this.unit3bTotalTB.TextChanged += new System.EventHandler(this.unit3bTotalTB_TextChanged);
             // 
             // unit3bCostTB
             // 
@@ -551,7 +558,7 @@
             this.checkboxBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.checkboxBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkboxBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.checkmark;
-            this.checkboxBtn.Location = new System.Drawing.Point(93, 572);
+            this.checkboxBtn.Location = new System.Drawing.Point(93, 593);
             this.checkboxBtn.Name = "checkboxBtn";
             this.checkboxBtn.Size = new System.Drawing.Size(100, 50);
             this.checkboxBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -564,7 +571,7 @@
             // 
             this.trashBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.trashBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.trash_icon;
-            this.trashBtn.Location = new System.Drawing.Point(32, 572);
+            this.trashBtn.Location = new System.Drawing.Point(32, 593);
             this.trashBtn.Name = "trashBtn";
             this.trashBtn.Size = new System.Drawing.Size(55, 55);
             this.trashBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -577,7 +584,7 @@
             this.editBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.editBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.editBtn.Image = global::MayniladSubmeterTracker.Properties.Resources.pencil_icon;
-            this.editBtn.Location = new System.Drawing.Point(110, 572);
+            this.editBtn.Location = new System.Drawing.Point(110, 593);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(50, 50);
             this.editBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -585,11 +592,33 @@
             this.editBtn.TabStop = false;
             this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
+            // checkBillTB
+            // 
+            this.checkBillTB.Enabled = false;
+            this.checkBillTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBillTB.Location = new System.Drawing.Point(230, 525);
+            this.checkBillTB.Name = "checkBillTB";
+            this.checkBillTB.ReadOnly = true;
+            this.checkBillTB.Size = new System.Drawing.Size(100, 26);
+            this.checkBillTB.TabIndex = 18;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Yu Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(53, 526);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(171, 25);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Inputted Bill Cost:";
+            // 
             // filterDataResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1169, 686);
+            this.Controls.Add(this.checkBillTB);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.checkboxBtn);
             this.Controls.Add(this.trashBtn);
             this.Controls.Add(this.editBtn);
@@ -672,5 +701,7 @@
         private System.Windows.Forms.PictureBox editBtn;
         private System.Windows.Forms.PictureBox trashBtn;
         private System.Windows.Forms.PictureBox checkboxBtn;
+        private System.Windows.Forms.TextBox checkBillTB;
+        private System.Windows.Forms.Label label2;
     }
 }
